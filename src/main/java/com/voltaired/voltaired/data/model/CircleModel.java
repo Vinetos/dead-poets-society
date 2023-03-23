@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity @Table(name = "circle")
@@ -17,5 +18,6 @@ import java.util.List;
 public class CircleModel extends PanacheEntity {
     @NotBlank String name;
 
-    @NotNull @OneToMany List<LetterModel> letters;
+    @OneToMany List<LetterModel> letters;
+    @ManyToOne(cascade = CascadeType.ALL) WriterModel writer;
 }
