@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-@Entity @Table(name = "poulpy")
+@Entity @Table(name = "writer")
 @With @AllArgsConstructor @NoArgsConstructor
 public class WriterModel extends PanacheEntity {
     @NotBlank String title;
