@@ -6,11 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity @Table(name = "circle")
 @With @AllArgsConstructor @NoArgsConstructor
 public class CircleModel extends PanacheEntity {
     @NotBlank String name;
+
+    @NotNull @OneToMany List<LetterModel> letters;
 }
