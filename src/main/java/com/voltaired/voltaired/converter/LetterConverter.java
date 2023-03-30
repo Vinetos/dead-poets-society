@@ -10,13 +10,11 @@ import javax.enterprise.context.ApplicationScoped;
 public class LetterConverter implements Converter<LetterModel, LetterEntity> {
 
     @Override public LetterEntity convertNotNull(LetterModel input) {
-        return new LetterEntity()
-                .withId(input.id)
-                .withContent(input.content)
-                .withDate(input.date)
-                .withSubject(input.subject)
-                .withWriter(null)
-                .withCircle(null)
-                ;
+        return new LetterEntity().withId(input.id)
+                                 .withContent(input.content)
+                                 .withDate(input.date)
+                                 .withSubject(input.subject)
+                                 .withWriter(null)
+                                 .withCircle(null);
     }
 }
