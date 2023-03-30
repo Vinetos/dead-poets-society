@@ -8,7 +8,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.voltaired.voltaired.util.Optionals.opt;
 
@@ -22,6 +21,10 @@ import static com.voltaired.voltaired.util.Optionals.opt;
                 circle.getName(),
                 new HashSet<>(),
                 opt(circle.getWriter()).map(WriterEntity::getId).orElse(-1L)
-        )).collect(Collectors.toList());
+        )).toList();
+    }
+
+    @Override public getCircle.Response getCircle(Long id) {
+        return null;
     }
 }

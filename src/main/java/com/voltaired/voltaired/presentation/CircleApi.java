@@ -15,9 +15,18 @@ public interface CircleApi {
 
     @GET @Path("/") List<getAllCircles.Response> getAllActivities();
 
-    @GET @Path("/{id}") getAllCircles.Response getActivity(@PathParam("id") id);
+    @GET @Path("/{id}") getCircle.Response getCircle(@PathParam("id") Long id);
 
     interface getAllCircles {
+        @With @Data @AllArgsConstructor class Response {
+            public Long id;
+            public String name;
+            public Set<Long> lettersId;
+            public Long writerId;
+        }
+    }
+
+    interface getCircle {
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public String name;
