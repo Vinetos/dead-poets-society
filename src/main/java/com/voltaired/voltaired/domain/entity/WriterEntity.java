@@ -11,7 +11,7 @@ public class WriterEntity {
     public long id;
     public String title;
     public String name;
-    public String panName;
+    public String penName;
 
     public Seq<LetterEntity> letters;
     public Seq<CircleEntity> circles;
