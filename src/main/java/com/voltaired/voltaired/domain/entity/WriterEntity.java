@@ -6,15 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
-@With @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor @NoArgsConstructor @With @Data
 public class WriterEntity {
-    long id;
-    String title;
-    String name;
-    String panName;
+    public long id;
+    public String title;
+    public String name;
+    public String panName;
 
-    Seq<LetterEntity> letters;
-    Seq<CircleEntity> circles;
+    public Seq<LetterEntity> letters;
+    public Seq<CircleEntity> circles;
 
 }

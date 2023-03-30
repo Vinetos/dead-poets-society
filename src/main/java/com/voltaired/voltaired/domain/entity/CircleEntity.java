@@ -6,11 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
-@With @Data
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor @NoArgsConstructor @With
+@Data
 public class CircleEntity {
-    long id;
-    String name;
-    Seq<LetterEntity> letters;
-    WriterEntity writer;
+    public long id;
+    public String name;
+    public Seq<LetterEntity> letters;
+    public WriterEntity writer;
 }

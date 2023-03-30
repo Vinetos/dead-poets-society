@@ -2,11 +2,7 @@ package com.voltaired.voltaired.data.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import lombok.With;
 
 import javax.persistence.Entity;
@@ -17,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 
 @Entity @Table(name = "letter")
-@With @Getter @Setter @ToString @RequiredArgsConstructor
+@With
 @AllArgsConstructor @NoArgsConstructor
 public class LetterModel extends PanacheEntity {
 
