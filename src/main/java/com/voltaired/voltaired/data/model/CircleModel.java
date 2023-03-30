@@ -14,10 +14,11 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity @Table(name = "circle")
-@With @AllArgsConstructor @NoArgsConstructor
+@With
+@AllArgsConstructor @NoArgsConstructor
 public class CircleModel extends PanacheEntity {
     @NotBlank String name;
 
-    @OneToMany List<LetterModel> letters;
-    @ManyToOne(cascade = CascadeType.ALL) WriterModel writer;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "circle") List<LetterModel> letters;
+    @ManyToOne WriterModel writer;
 }

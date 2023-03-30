@@ -1,6 +1,5 @@
 package com.voltaired.voltaired.data.repository;
 
-import com.voltaired.voltaired.data.model.CircleModel;
 import com.voltaired.voltaired.data.model.LetterModel;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
