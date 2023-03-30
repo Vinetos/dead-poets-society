@@ -3,10 +3,11 @@ package com.voltaired.voltaired.domain.service;
 import com.voltaired.voltaired.converter.CircleConverter;
 import com.voltaired.voltaired.data.repository.CircleRepository;
 import com.voltaired.voltaired.domain.entity.CircleEntity;
-import com.voltaired.voltaired.util.Seq;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped public class CircleService {
@@ -14,14 +15,13 @@ import java.util.Optional;
     @Inject CircleRepository circleRepository;
     @Inject CircleConverter circleConverter;
 
-    public Seq<CircleEntity> getCircles() {
-        return () -> circleRepository.findAll()
-                                     .stream()
-                                     .limit(5)
-                                     .map(circle -> new CircleEntity().withId(circle.id)
-                                                                      .withLetters(Seq.of())
-                                                                      .withWriter(null)
-                                                                      .withName(circle.name));
+    @Transactional
+    public List<CircleEntity> getCircles() {
+        return circleRepository.findAll()
+                               .stream()
+                               .limit(5)
+                               .map(circleConverter::convertNotNull)
+                               .toList();
     }
 
     public Optional<CircleEntity> getCircle(Long id) {

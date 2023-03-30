@@ -1,4 +1,4 @@
-package com.voltaired.voltaired;
+package com.voltaired.voltaired.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
