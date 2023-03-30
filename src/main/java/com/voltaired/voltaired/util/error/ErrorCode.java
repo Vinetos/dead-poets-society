@@ -1,4 +1,4 @@
-package com.voltaired.voltaired.util;
+package com.voltaired.voltaired.util.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public interface ErrorCode extends Supplier<ErrorCode.RuntimeError>, Function<Ob
         return runtime();
     }
 
-    public int getHttpCode();
+    int getHttpCode();
 
     String getMessage(final Object... parameters);
 
@@ -33,13 +33,13 @@ public interface ErrorCode extends Supplier<ErrorCode.RuntimeError>, Function<Ob
         return () -> apply(parameters);
     }
 
-    @Getter @AllArgsConstructor public static class RuntimeError extends RuntimeException {
+    @Getter @AllArgsConstructor class RuntimeError extends RuntimeException {
         public ErrorCode errorCode;
         public Object[] parameters;
 
         public Response asResponse() {
             return Response.status(getHttpCode())
-                           .entity(getMessage())
+                           .entity("{\"error\":\"" + getMessage() + "\"}")
                            .build();
         }
 

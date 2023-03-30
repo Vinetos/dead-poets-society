@@ -30,8 +30,8 @@ import java.util.Optional;
                         .withTitle(writer.title)
                         .withName(writer.name)
                         .withPenName(writer.penName)
-                        .withCircles(writer.circles.stream().map(circleConverter::convertNotNull).toList())
-                        .withLetters(writer.letters.stream().map(letterConverter::convertNotNull).toList()));
+                        .withCircles(() -> writer.circles.stream().map(circleConverter::convertNotNull).toList())
+                        .withLetters(() -> writer.letters.stream().map(letterConverter::convertNotNull).toList()));
     }
 
     public Optional<WriterEntity> getWriter(Long id) {

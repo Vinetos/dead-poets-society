@@ -1,6 +1,6 @@
 package com.voltaired.voltaired;
 
-import com.voltaired.voltaired.util.ErrorCode;
+import com.voltaired.voltaired.util.error.ErrorCode;
 import lombok.Getter;
 
 public enum ErrorCodes implements ErrorCode {

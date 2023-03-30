@@ -10,7 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import java.util.List;
-import java.util.Set;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -27,8 +26,8 @@ public interface CircleApi {
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public String name;
-            public Set<Long> lettersId;
-            public Long writerId;
+            public List<Long> lettersId;
+            public List<Long> writersId;
         }
     }
 
@@ -36,8 +35,8 @@ public interface CircleApi {
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public String name;
-            public Set<Long> lettersId;
-            public Long writerId;
+            public List<Long> lettersId;
+            public List<Long> writersId;
         }
     }
 

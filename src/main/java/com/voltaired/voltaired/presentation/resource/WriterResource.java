@@ -22,8 +22,8 @@ public class WriterResource implements WriterApi {
                 writer.getTitle(),
                 writer.getName(),
                 writer.getPenName(),
-                writer.getLetters(),
-                writer.getCircles()
+                writer.getLetters().transactionalGet(),
+                writer.getCircles().transactionalGet()
         )).toList();
     }
 
@@ -34,8 +34,8 @@ public class WriterResource implements WriterApi {
                 writer.getTitle(),
                 writer.getName(),
                 writer.getPenName(),
-                writer.getLetters(),
-                writer.getCircles()
+                writer.getLetters().transactionalGet(),
+                writer.getCircles().transactionalGet()
         ));
         if (opt.isEmpty()) throw ErrorCodes.WRITER_NOT_FOUND.with(id).get();
         return opt.get();

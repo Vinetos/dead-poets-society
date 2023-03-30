@@ -1,5 +1,6 @@
 package com.voltaired.voltaired.domain.entity;
 
+import com.voltaired.voltaired.util.TransactionalSupplier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class WriterEntity {
     public String name;
     public String penName;
 
-    public List<LetterEntity> letters;
-    public List<CircleEntity> circles;
+    public TransactionalSupplier<List<LetterEntity>> letters;
+    public TransactionalSupplier<List<CircleEntity>> circles;
 
 }
