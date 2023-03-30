@@ -7,6 +7,7 @@ import lombok.With;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -20,6 +21,6 @@ public class WriterModel extends PanacheEntity {
     public @NotBlank String penName;
 
     public @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<LetterModel> letters;
-    public @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<CircleModel> circles;
+    public @ManyToMany(mappedBy = "writers") List<CircleModel> circles;
 
 }

@@ -7,8 +7,9 @@ import lombok.With;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -19,6 +20,15 @@ import java.util.List;
 public class CircleModel extends PanacheEntity {
     public @NotBlank String name;
 
-    public @OneToMany(cascade = CascadeType.ALL, mappedBy = "circle") List<LetterModel> letters;
-    public @ManyToOne WriterModel writer;
+    public @ManyToMany(cascade = CascadeType.ALL) @JoinTable(
+            name = "circle_letters",
+            joinColumns = @JoinColumn(name = "writer_id"),
+            inverseJoinColumns = @JoinColumn(name = "letter_id")
+    ) List<LetterModel> letters;
+    public @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "circle_writers",
+            joinColumns = @JoinColumn(name = "writer_id"),
+            inverseJoinColumns = @JoinColumn(name = "circle_id"))
+    List<WriterModel> writers;
 }
