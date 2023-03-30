@@ -15,11 +15,11 @@ import java.util.List;
 @Entity @Table(name = "writer")
 @With @AllArgsConstructor @NoArgsConstructor
 public class WriterModel extends PanacheEntity {
-    @NotBlank String title;
-    @NotBlank String name;
-    @NotBlank String panName;
+    public @NotBlank String title;
+    public @NotBlank String name;
+    public @NotBlank String panName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<LetterModel> letters;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<CircleModel> circles;
+    public @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<LetterModel> letters;
+    public @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<CircleModel> circles;
 
 }

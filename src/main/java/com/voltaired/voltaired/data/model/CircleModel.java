@@ -17,8 +17,8 @@ import java.util.List;
 @With
 @AllArgsConstructor @NoArgsConstructor
 public class CircleModel extends PanacheEntity {
-    @NotBlank String name;
+    public @NotBlank String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "circle") List<LetterModel> letters;
-    @ManyToOne WriterModel writer;
+    public @OneToMany(cascade = CascadeType.ALL, mappedBy = "circle") List<LetterModel> letters;
+    public @ManyToOne WriterModel writer;
 }

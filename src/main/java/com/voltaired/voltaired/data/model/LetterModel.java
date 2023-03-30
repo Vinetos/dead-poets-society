@@ -16,10 +16,10 @@ import java.time.ZonedDateTime;
 @With @AllArgsConstructor @NoArgsConstructor
 public class LetterModel extends PanacheEntity {
 
-    @NotNull ZonedDateTime date;
-    @NotBlank String subject;
-    @NotBlank String content;
-    @NotNull @ManyToOne CircleModel circle;
-    @ManyToOne WriterModel writer;
+    public @NotNull ZonedDateTime date;
+    public @NotBlank String subject;
+    public @NotBlank String content;
+    public @NotNull @ManyToOne CircleModel circle;
+    public @ManyToOne WriterModel writer;
 
 }
