@@ -6,6 +6,7 @@ import lombok.With;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import java.util.Set;
 public interface CircleApi {
 
     @GET @Path("/") List<getAllCircles.Response> getAllActivities();
+
+    @GET @Path("/{id}") getAllCircles.Response getActivity(@PathParam("id") id);
 
     interface getAllCircles {
         @With @Data @AllArgsConstructor class Response {

@@ -17,7 +17,7 @@ import java.util.List;
 public class WriterModel extends PanacheEntity {
     public @NotBlank String title;
     public @NotBlank String name;
-    public @NotBlank String panName;
+    public @NotBlank String penName;
 
     public @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<LetterModel> letters;
     public @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<CircleModel> circles;
