@@ -9,4 +9,15 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
 
+  keycloack:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - "8543:8443"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - ./config/keycloak-keystore.jks:/etc/keycloak-keystore.jks
+    command:
+      - "start --proxy edge --hostname-strict=false --hostname-url=\"https://dps.soa.local/auth\" --https-key-store-file=/etc/keycloak-keystore.jks --hostname-admin-url=\"https://dps.soa.local/auth\""
 
