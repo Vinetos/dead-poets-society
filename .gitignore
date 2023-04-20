@@ -37,3 +37,6 @@ nb-configuration.xml
 
 # visual studio
 .idea
+
+#Python
+__pycache__

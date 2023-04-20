@@ -4,15 +4,7 @@ class Circle(db.Model):
 
     id = db.Column("circle_id", db.Integer, primary_key=True)
     name = db.Column(db.Text)
-    letters = db.relationship('Letter', secondary=letters, lazy='subquery',
-        backref=db.backref('letter_id', lazy=True))
-    """
-    @JoinTable(
-            name = "circle_writers",
-            joinColumns = @JoinColumn(name = "writer_id"),
-            inverseJoinColumns = @JoinColumn(name = "circle_id"))
-    List<WriterModel> writers;
-    lumn(name = "writer_id"),
-            inverseJoinColumns = @JoinColumn(name = "circle_id"))
-    List<WriterModel> writers;
-    """
+    letters = db.relationship('Letter', lazy='subquery',
+        backref=db.backref('Wetter.id', lazy=True))
+    letters = db.relationship('Writer', lazy='subquery',
+        backref=db.backref('Writer.id', lazy=True))
