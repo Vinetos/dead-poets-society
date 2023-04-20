@@ -12,12 +12,10 @@ services:
   keycloack:
     image: quay.io/keycloak/keycloak:latest
     ports:
-      - "8543:8443"
+      - "8765:8765"
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-    volumes:
-      - ./config/keycloak-keystore.jks:/etc/keycloak-keystore.jks
     command:
-      - "start --proxy edge --hostname-strict=false --hostname-url=\"https://dps.soa.local/auth\" --https-key-store-file=/etc/keycloak-keystore.jks --hostname-admin-url=\"https://dps.soa.local/auth\""
+      - "start-dev --proxy edge --http-relative-path /auth --http-port 8765"
 
