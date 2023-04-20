@@ -4,11 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.With;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -22,7 +18,6 @@ public interface LetterApi {
     @GET List<getAllLetters.Response> getAllLetters();
 
     @GET @Path("{id}") getLetter.Response getLetter(@PathParam("id") Long id);
-
     interface getAllLetters {
         @With @Data @AllArgsConstructor class Response {
             public Long id;
