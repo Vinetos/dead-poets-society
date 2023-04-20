@@ -1,19 +1,27 @@
 package com.voltaired.voltaired.presentation.resource;
 
 import com.voltaired.voltaired.ErrorCodes;
+import com.voltaired.voltaired.domain.entity.CircleEntity;
 import com.voltaired.voltaired.domain.entity.LetterEntity;
 import com.voltaired.voltaired.domain.entity.WriterEntity;
 import com.voltaired.voltaired.domain.service.CircleService;
+import com.voltaired.voltaired.domain.service.LetterService;
 import com.voltaired.voltaired.presentation.CircleApi;
+import com.voltaired.voltaired.presentation.LetterApi;
+import com.voltaired.voltaired.util.Optionals;
 import lombok.val;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 
+import static com.voltaired.voltaired.util.Optionals.opt;
+
 @ApplicationScoped public class CircleResource implements CircleApi {
 
     @Inject CircleService circleService;
+    @Inject
+    LetterService letterService;
 
     @Override public List<getAllCircles.Response> getAllActivities() {
         return circleService.getCircles().stream().map(circle -> new getAllCircles.Response(
@@ -32,6 +40,18 @@ import java.util.List;
                 circle.getLetters().transactionalGet().stream().map(LetterEntity::getId).toList()
         ));
         if (opt.isEmpty()) throw ErrorCodes.CIRCLE_NOT_FOUND.with(id).get();
+        return opt.get();
+    }
+
+    @Override public CircleApi.postLetters.Response postLetters(Long circleId, postLetters.Request request) {
+        val opt = opt(letterService.postLetters(circleId, request)).map(letter -> new postLetters.Response(
+                letter.getId(),
+                letter.getDate(),
+                letter.getCircle().transactionalGet().stream().map(CircleEntity::getId).toList().get(0),
+                letter.getSubject(),
+                letter.getContent(),
+                letter.writer.getId()
+                ));
         return opt.get();
     }
 }
