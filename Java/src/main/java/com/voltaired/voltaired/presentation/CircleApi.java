@@ -11,17 +11,23 @@ import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Path("/circles")
-@Produces(APPLICATION_JSON)
-@Consumes(APPLICATION_JSON)
-public interface CircleApi {
+@Path("/circles") @Produces(APPLICATION_JSON) @Consumes(APPLICATION_JSON) public interface CircleApi {
 
     @GET List<getAllCircles.Response> getAllActivities();
 
     @GET @Path("{id}") getCircle.Response getCircle(@PathParam("id") Long id);
 
-    @POST @Authenticated
-    @Path("{circleId}/letters") postLetters.Response postLetters(@PathParam("circleId") Long circleid, postLetters.Request request);
+    @PUT
+    @Authenticated
+    @Path("{id}/enter") enterCircle.Response enterCircle(@PathParam("id") Long id, enterCircle.Request request);
+
+    @PUT
+    @Authenticated
+    @Path("{id}/leave") void leaveCircle(@PathParam("id") Long id, leaveCircle.Request request);
+
+    @POST
+    @Authenticated
+    @Path("{id}/letters") postLetters.Response postLetters(@PathParam("id") Long id, postLetters.Request request);
 
     interface getAllCircles {
         @With @Data @AllArgsConstructor class Response {
@@ -38,6 +44,22 @@ public interface CircleApi {
             public String name;
             public List<Long> lettersId;
             public List<Long> writersId;
+        }
+    }
+
+    interface enterCircle {
+        @With @Data @AllArgsConstructor class Request {
+            public Long writerId;
+        }
+
+        @With @Data @AllArgsConstructor class Response {
+            public List<Long> circlesId;
+        }
+    }
+
+    interface leaveCircle {
+        @With @Data @AllArgsConstructor class Request {
+            public Long writerId;
         }
     }
 

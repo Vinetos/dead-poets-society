@@ -1,71 +1,25 @@
 # voltaired
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Lancer les containers et les APIs
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
-
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-```shell script
-./gradlew quarkusDev
+D'abord, on doit démarrer nos containers via le docker-compose :
+```shell
+docker compose up
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+Ensuite, il faut configurer notre keycloack pour obtenir le secret du client pour l'API user.
+Aller dans `http://localhost:8765/auth/admin/master/console/#/deadpoetssociety/clients/f54c0c30-b86e-41de-9595-dd13244e3c97/credentials` puis
+cliquer sur "Save". Régénérer le secret et le copier dans remplacer `application.properties` dans Java/src/main/resource.
 
-## Packaging and running the application
-
-The application can be packaged using:
-```shell script
-./gradlew build
 ```
-It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./gradlew build -Dquarkus.package.type=uber-jar
+quarkus.oidc.credentials.secret=<Generated secret>
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
+Après, vous pouvez créer autant d'utilisateur que vous souhaitez sur http://localhost:8765/auth/admin/master/console/#/deadpoetssociety/users
 
-## Creating a native executable
+Enfin, on peut lancer notre API Java : `cd Java && ./gradlew quarkusDev`
 
-You can create a native executable using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native
-```
+# Troubleshooting
+> Je n'ai que des 401 sur l'API Java et j'ai l'erreur `ID token verification failure: io.quarkus.security.AuthenticationFailedException`.
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./build/voltaired-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
-
-## Related Guides
-
-- REST resources for Hibernate ORM with Panache ([guide](https://quarkus.io/guides/rest-data-panache)): Generate JAX-RS resources for your Hibernate Panache entities and repositories
-- Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and JPA
-- RESTEasy Classic ([guide](https://quarkus.io/guides/resteasy)): REST endpoint framework implementing JAX-RS and more
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+Cela est du à un mauvais token de session. Il faut clear les cookies sur localhost : ![img.png](img.png)

@@ -17,7 +17,7 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     volumes:
-      - ./data/keycloack:/opt/keycloak/data/import
+      - ./Java/data/keycloack:/opt/keycloak/data/import
     command:
       - "start-dev --proxy edge --http-relative-path /auth --http-port 8765 --import-realm"
 
