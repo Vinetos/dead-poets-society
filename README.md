@@ -1,4 +1,8 @@
 # voltaired
+## Mettre 1a jour les hosts
+``` 
+127.0.0.1 dps.epita.local
+```
 
 ## Lancer les containers et les APIs
 

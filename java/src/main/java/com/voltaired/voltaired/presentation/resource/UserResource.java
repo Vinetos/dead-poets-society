@@ -11,12 +11,13 @@ import javax.ws.rs.Path;
 @Authenticated
 public class UserResource {
 
-    @Inject SecurityIdentity securityIdentity;
+//    @Inject SecurityIdentity securityIdentity;
 
     @GET
     @Path("/me")
     public String me() {
-        return securityIdentity.getPrincipal().getName();
+        return "nobody";
+//        return securityIdentity.getPrincipal().getName();
     }
 
 }

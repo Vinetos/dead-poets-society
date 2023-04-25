@@ -2,22 +2,56 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:15.2
     ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
 
-  keycloack:
-    image: quay.io/keycloak/keycloak:latest
+  apache-oidc:
+    build: ./apache-oidc
+    depends_on:
+      - "java-app"
+      - "python-app"
+      - "keycloak"
+    networks:
+      - public-network
+      - private-network
     ports:
-      - "8765:8765"
+      - "80:80"
+      - "443:443"
+    environment:
+      OIDC_PROVIDER_METADATA_URL: http://keycloak:8080/realms/deadpoetssociety/.well-known/openid-configuration
+      OIDC_CLIENT_ID: apache-oidc
+      OIDC_CLIENT_SECRET: 654ckxBaivlZkQVOzcyuWrsGnfDxc3mQ
+      OIDC_CRYPTO_PASSPHRASE: theMegaPassPhraseOfTheDeath
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    networks:
+      - private-network
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     volumes:
-      - ./Java/data/keycloack:/opt/keycloak/data/import
-    command:
-      - "start-dev --proxy edge --http-relative-path /auth --http-port 8765 --import-realm"
+      - ./keycloak:/opt/keycloak/data/import:ro
+    command: start-dev --import-realm --proxy edge --hostname-strict=false --hostname-url="https://dps.epita.local/auth" --hostname-admin-url="https://dps.epita.local/auth"
 
+  python-app:
+    build: ./python
+    depends_on:
+      - "keycloak"
+    networks:
+      - private-network
+
+  java-app:
+    build: ./java
+    depends_on:
+      - "keycloak"
+    networks:
+      - private-network
+
+networks:
+  public-network:
+  private-network:
