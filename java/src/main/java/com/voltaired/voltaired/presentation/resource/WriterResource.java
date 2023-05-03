@@ -2,6 +2,7 @@ package com.voltaired.voltaired.presentation.resource;
 
 import com.voltaired.voltaired.ErrorCodes;
 import com.voltaired.voltaired.domain.service.WriterService;
+import com.voltaired.voltaired.presentation.CircleApi;
 import com.voltaired.voltaired.presentation.WriterApi;
 import lombok.val;
 
@@ -9,14 +10,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 
-@ApplicationScoped
-public class WriterResource implements WriterApi {
+@ApplicationScoped public class WriterResource implements WriterApi {
 
-    @Inject
-    WriterService writerService;
+    @Inject WriterService writerService;
 
-    @Override
-    public List<getAllWriters.Response> getAllWriters() {
+    @Override public List<getAllWriters.Response> getAllWriters() {
         return writerService.getWriters().map(writer -> new getAllWriters.Response(
                 writer.getId(),
                 writer.getTitle(),
@@ -27,8 +25,7 @@ public class WriterResource implements WriterApi {
         )).toList();
     }
 
-    @Override
-    public getWriter.Response getWriter(Long id) {
+    @Override public getWriter.Response getWriter(Long id) {
         val opt = writerService.getWriter(id).map(writer -> new WriterApi.getWriter.Response(
                 writer.getId(),
                 writer.getTitle(),

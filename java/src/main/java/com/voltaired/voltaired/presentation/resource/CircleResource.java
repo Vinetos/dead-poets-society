@@ -6,6 +6,7 @@ import com.voltaired.voltaired.domain.entity.LetterEntity;
 import com.voltaired.voltaired.domain.entity.WriterEntity;
 import com.voltaired.voltaired.domain.service.CircleService;
 import com.voltaired.voltaired.domain.service.LetterService;
+import com.voltaired.voltaired.domain.service.WriterService;
 import com.voltaired.voltaired.presentation.CircleApi;
 import com.voltaired.voltaired.presentation.LetterApi;
 import com.voltaired.voltaired.util.Optionals;
@@ -20,8 +21,8 @@ import static com.voltaired.voltaired.util.Optionals.opt;
 @ApplicationScoped public class CircleResource implements CircleApi {
 
     @Inject CircleService circleService;
-    @Inject
-    LetterService letterService;
+    @Inject LetterService letterService;
+    @Inject WriterService writerService;
 
     @Override public List<getAllCircles.Response> getAllActivities() {
         return circleService.getCircles().stream().map(circle -> new getAllCircles.Response(
@@ -43,6 +44,14 @@ import static com.voltaired.voltaired.util.Optionals.opt;
         return opt.get();
     }
 
+    @Override public enterCircle.Response enterCircle(Long id, enterCircle.Request request) {
+        return new enterCircle.Response(writerService.enterCircle(id, request.writerId));
+    }
+
+    @Override public void leaveCircle(Long id, leaveCircle.Request request) {
+        writerService.leaveCircle(id, request.writerId);
+    }
+
     @Override public CircleApi.postLetters.Response postLetters(Long circleId, postLetters.Request request) {
         val opt = opt(letterService.postLetters(circleId, request)).map(letter -> new postLetters.Response(
                 letter.getId(),
@@ -51,7 +60,7 @@ import static com.voltaired.voltaired.util.Optionals.opt;
                 letter.getSubject(),
                 letter.getContent(),
                 letter.writer.getId()
-                ));
+        ));
         return opt.get();
     }
 }

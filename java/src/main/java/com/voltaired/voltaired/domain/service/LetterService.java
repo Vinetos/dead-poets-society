@@ -16,30 +16,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-public class LetterService {
+@ApplicationScoped public class LetterService {
 
     @Inject LetterRepository letterRepository;
     @Inject LetterConverter converter;
 
-    @Inject
-    WriterRepository writerRepository;
+    @Inject WriterRepository writerRepository;
 
-    @Inject
-    CircleRepository circleRepository;
+    @Inject CircleRepository circleRepository;
 
-    @Transactional
-    public List<LetterEntity> findInCircle(Long circleId) {
+    @Transactional public List<LetterEntity> findInCircle(Long circleId) {
         return letterRepository.findInCircle(circleId).stream().map(converter::convertNotNull).toList();
     }
 
-    @Transactional
-    public List<LetterEntity> getLetters() {
-        return letterRepository.findAll()
-                               .stream()
-                               .limit(5)
-                               .map(converter::convertNotNull)
-                               .toList();
+    @Transactional public List<LetterEntity> getLetters() {
+        return letterRepository.findAll().stream().limit(5).map(converter::convertNotNull).toList();
     }
 
     public Optional<LetterEntity> getLetter(Long id) {
@@ -47,12 +38,11 @@ public class LetterService {
     }
 
     public LetterEntity postLetters(Long circleId, CircleApi.postLetters.Request request) {
-        var letterModel = new LetterModel()
-                .withDate(ZonedDateTime.now())
-                .withSubject(request.subject)
-                .withContent(request.content)
-                .withCircles(Collections.singletonList(circleRepository.findById(circleId)))
-                .withWriter(writerRepository.findById(request.writerId));
+        var letterModel = new LetterModel().withDate(ZonedDateTime.now())
+                                           .withSubject(request.subject)
+                                           .withContent(request.content)
+                                           .withCircles(Collections.singletonList(circleRepository.findById(circleId)))
+                                           .withWriter(writerRepository.findById(request.writerId));
         letterRepository.persist(letterModel);
         return converter.convert(letterModel);
     }
