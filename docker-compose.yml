@@ -43,14 +43,13 @@ services:
   python-app:
     build: ./python
     depends_on:
-      - "keycloak"
+      - "postgres"
     networks:
       - private-network
 
   java-app:
     build: ./java
     depends_on:
-      - "keycloak"
       - "postgres"
     networks:
       - private-network
