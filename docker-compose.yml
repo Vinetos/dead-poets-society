@@ -5,6 +5,8 @@ services:
     image: postgres:15.2
     ports:
       - "5432:5432"
+    networks:
+      - private-network
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -49,6 +51,7 @@ services:
     build: ./java
     depends_on:
       - "keycloak"
+      - "postgres"
     networks:
       - private-network
 

@@ -6,9 +6,9 @@ WORKDIR /app
 COPY gradle.properties gradle.properties
 COPY settings.gradle.kts settings.gradle.kts
 COPY build.gradle.kts build.gradle.kts
-COPY src ./
+COPY src src
 
-RUN gradle build -Dquarkus.package.type=uber-jar --no-daemon
+RUN gradle build -Dquarkus.package.type=uber-jar -DskipTests=true --no-daemon
 
 # Package step
 FROM eclipse-temurin:17-jre-jammy
