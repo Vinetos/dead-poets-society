@@ -23,6 +23,6 @@ USER appuser
 
 COPY --chown=appuser:appuser --chmod=444 --from=build /app/build/*-runner.jar /app/app.jar
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
 
 
