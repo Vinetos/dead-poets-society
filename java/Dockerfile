@@ -1,15 +1,17 @@
 # Build step
-FROM 7-jdk17 AS build
+FROM gradle:7-jdk17 AS build
 
-COPY gradle.properties /app/gradle.properties
-COPY settings.gradle.kts /app/settings.gradle.kts
-COPY build.gradle.kts /app/build.gradle.kts
-COPY src /app/src
-RUN gradle build -Dquarkus.package.type=uber-jar
+WORKDIR /app
+
+COPY gradle.properties gradle.properties
+COPY settings.gradle.kts settings.gradle.kts
+COPY build.gradle.kts build.gradle.kts
+COPY src ./
+
+RUN gradle build -Dquarkus.package.type=uber-jar --no-daemon
 
 # Package step
 FROM eclipse-temurin:17-jre-jammy
-COPY --from=build /app/build/voltaired-1.0.0-SNAPSHOT-runner.jar /app/app.jar
 
 LABEL authors="vinetos"
 
@@ -19,7 +21,7 @@ RUN groupadd -g 999 appuser && \
     useradd -r -u 999 -g appuser appuser
 USER appuser
 
-COPY --chown=appuser:appuser --chmod=444 /app/build/*-runner.jar /app/app.jar
+COPY --chown=appuser:appuser --chmod=444 --from=build /app/build/*-runner.jar /app/app.jar
 
 ENTRYPOINT ["java","-jar","app.jar"]
 
