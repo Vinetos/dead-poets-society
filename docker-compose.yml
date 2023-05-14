@@ -40,6 +40,19 @@ services:
       - ./keycloak:/opt/keycloak/data/import:ro
     command: start-dev --import-realm --proxy edge --hostname-strict=false --hostname-url="https://dps.epita.local/auth" --hostname-admin-url="https://dps.epita.local/auth"
 
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass redis
+    environment:
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis
+    volumes: 
+      - cache:/data
+
   python-app:
     build: ./python
     depends_on:
@@ -53,8 +66,14 @@ services:
     depends_on:
       - "postgres"
       - "keycloak"
+      - "cache"
     networks:
       - private-network
+
+volumes:
+  cache:
+    driver: local
+
 
 networks:
   public-network:
