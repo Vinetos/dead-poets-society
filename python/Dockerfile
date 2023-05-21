@@ -1,17 +1,19 @@
-# pull official base image
-FROM python:3.11.3-slim-buster
+FROM python:3.8-slim-buster
 
-# set work directory
-#WORKDIR /usr/src/app
+# Set the working directory in the container
+WORKDIR /application
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Copy the requirements file into the container
+COPY requirements.txt .
 
-# install dependencies
-# RUN pip install --upgrade pip
-#COPY ./requirements.txt /usr/src/app/requirements.txt
-#RUN pip install -r requirements.txt
+# Install the Python dependencies
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-# copy project
-#COPY . /usr/src/app/
+# Copy the rest of the application code into the container
+COPY . .
+
+EXPOSE 5000
+
+# Set the entry point command to run the Flask application
+CMD ["python", "run.py"]

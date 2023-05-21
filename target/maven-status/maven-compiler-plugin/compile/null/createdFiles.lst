@@ -1,0 +1,7 @@
+com/voltaired/voltaired/data/repository/CircleRepository.class
+META-INF/panache-archive.marker
+com/voltaired/voltaired/data/model/WriterModel.class
+com/voltaired/voltaired/data/repository/WriterRepository.class
+com/voltaired/voltaired/data/model/CircleModel.class
+com/voltaired/voltaired/data/repository/LetterRepository.class
+com/voltaired/voltaired/data/model/LetterModel.class
