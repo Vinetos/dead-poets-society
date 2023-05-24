@@ -47,5 +47,4 @@ import java.util.Optional;
         return converter.convert(letterModel);
         //TODO: generate log
     }
-
 }
