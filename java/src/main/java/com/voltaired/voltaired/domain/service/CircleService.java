@@ -1,19 +1,12 @@
 package com.voltaired.voltaired.domain.service;
 
 import com.voltaired.voltaired.converter.CircleConverter;
-import com.voltaired.voltaired.data.model.LetterModel;
 import com.voltaired.voltaired.data.repository.CircleRepository;
-import com.voltaired.voltaired.data.repository.LetterRepository;
-import com.voltaired.voltaired.data.repository.WriterRepository;
 import com.voltaired.voltaired.domain.entity.CircleEntity;
-import com.voltaired.voltaired.domain.entity.LetterEntity;
-import com.voltaired.voltaired.presentation.CircleApi;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.time.ZonedDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

@@ -45,6 +45,7 @@ import java.util.Optional;
                                            .withWriter(writerRepository.findById(request.writerId));
         letterRepository.persist(letterModel);
         return converter.convert(letterModel);
+        //TODO: generate log
     }
 
 }

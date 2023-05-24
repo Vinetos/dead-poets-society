@@ -4,9 +4,7 @@ import com.voltaired.voltaired.converter.CircleConverter;
 import com.voltaired.voltaired.converter.LetterConverter;
 import com.voltaired.voltaired.converter.WriterConverter;
 import com.voltaired.voltaired.data.repository.WriterRepository;
-import com.voltaired.voltaired.domain.entity.CircleEntity;
 import com.voltaired.voltaired.domain.entity.WriterEntity;
-import com.voltaired.voltaired.presentation.CircleApi;
 import com.voltaired.voltaired.util.Seq;
 
 import javax.enterprise.context.ApplicationScoped;
