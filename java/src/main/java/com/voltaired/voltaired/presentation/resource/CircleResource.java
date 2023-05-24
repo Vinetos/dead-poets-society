@@ -8,8 +8,6 @@ import com.voltaired.voltaired.domain.service.CircleService;
 import com.voltaired.voltaired.domain.service.LetterService;
 import com.voltaired.voltaired.domain.service.WriterService;
 import com.voltaired.voltaired.presentation.CircleApi;
-import com.voltaired.voltaired.presentation.LetterApi;
-import com.voltaired.voltaired.util.Optionals;
 import lombok.val;
 
 import javax.enterprise.context.ApplicationScoped;

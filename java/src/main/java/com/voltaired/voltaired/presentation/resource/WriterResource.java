@@ -2,7 +2,6 @@ package com.voltaired.voltaired.presentation.resource;
 
 import com.voltaired.voltaired.ErrorCodes;
 import com.voltaired.voltaired.domain.service.WriterService;
-import com.voltaired.voltaired.presentation.CircleApi;
 import com.voltaired.voltaired.presentation.WriterApi;
 import lombok.val;
 
