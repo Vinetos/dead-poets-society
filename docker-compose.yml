@@ -55,6 +55,8 @@ services:
       - "keycloak"
     networks:
       - private-network
+    environment:
+      QUARKUS_OIDC_AUTH_SERVER_URL: http://keycloak:8080/realms/deadpoetssociety/
 
 networks:
   public-network:
