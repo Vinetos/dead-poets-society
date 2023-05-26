@@ -69,6 +69,8 @@ services:
       - "cache"
     networks:
       - private-network
+    environment:
+      QUARKUS_OIDC_AUTH_SERVER_URL: http://keycloak:8080/realms/deadpoetssociety/
 
 volumes:
   cache:

@@ -22,7 +22,7 @@ import static com.voltaired.voltaired.util.Optionals.opt;
     @Inject LetterService letterService;
     @Inject WriterService writerService;
 
-    @Override public List<getAllCircles.Response> getAllActivities() {
+    @Override public List<getAllCircles.Response> getAllCircles() {
         return circleService.getCircles().stream().map(circle -> new getAllCircles.Response(
                 circle.getId(),
                 circle.getName(),
@@ -60,5 +60,17 @@ import static com.voltaired.voltaired.util.Optionals.opt;
                 letter.writer.getId()
         ));
         return opt.get();
+    }
+
+    @Override
+    public postLettersReply.Response postLetterReply(Long id, Long letterId, postLettersReply.Request request) {
+        // TODO: 26/05/2023 Implements me
+        return null;
+    }
+
+    @Override public deleteCircles deleteCircles(Long id) {
+        // todo call the service to delete the circle
+
+        return null;
     }
 }

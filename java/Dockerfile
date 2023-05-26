@@ -1,14 +1,20 @@
 # Build step
 FROM gradle:7-jdk17 AS build
 
+RUN gradle --version && java -version
+
 WORKDIR /app
 
-COPY gradle.properties gradle.properties
-COPY settings.gradle.kts settings.gradle.kts
-COPY build.gradle.kts build.gradle.kts
+# Only copy dependency-related files
+COPY build.gradle.kts gradle.properties settings.gradle.kts /app/
+
+# Only download dependencies
+# Eat the expected build failure since no source code has been copied yet
+RUN gradle clean build --no-daemon > /dev/null 2>&1 || true
+
 COPY src src
 
-RUN gradle build -Dquarkus.package.type=uber-jar -DskipTests=true --no-daemon
+RUN gradle clean build -Dquarkus.package.type=uber-jar -DskipTests=true --no-daemon
 
 # Package step
 FROM eclipse-temurin:17-jre-jammy
