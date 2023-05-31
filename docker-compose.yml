@@ -44,7 +44,7 @@ services:
     build: ./python
     depends_on:
       - "postgres"
-      - "keycloak"
+      #- "keycloak"
     networks:
       - private-network
 
