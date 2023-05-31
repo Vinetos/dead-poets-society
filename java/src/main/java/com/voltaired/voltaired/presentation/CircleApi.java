@@ -33,8 +33,12 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     @Path("{id}/leave") void leaveCircle(@PathParam("id") Long id, leaveCircle.Request request);
 
     @POST
-    @Authenticated
+//    @Authenticated
     @Path("{id}/letters") postLetters.Response postLetters(@PathParam("id") Long id, postLetters.Request request);
+
+    @POST
+//    @Authenticated
+    @Path("create/{name}") createCircle.Response createCircle(@PathParam("name") String name);
 
     @POST
     @Authenticated
@@ -45,6 +49,14 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     @DELETE
     @Authenticated
     @Path("{id}") deleteCircles deleteCircles(@PathParam("id") Long id);
+
+    interface createCircle {
+
+        @With @Data @AllArgsConstructor class Response {
+            public Long id;
+            public String name;
+        }
+    }
 
     interface getAllCircles {
         @With @Data @AllArgsConstructor class Response {

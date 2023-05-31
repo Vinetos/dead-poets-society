@@ -1,6 +1,7 @@
 package com.voltaired.voltaired.domain.service;
 
 import com.voltaired.voltaired.converter.CircleConverter;
+import com.voltaired.voltaired.data.model.CircleModel;
 import com.voltaired.voltaired.data.repository.CircleRepository;
 import com.voltaired.voltaired.domain.entity.CircleEntity;
 
@@ -26,5 +27,12 @@ import java.util.Optional;
 
     public Optional<CircleEntity> getCircle(Long id) {
         return circleRepository.findByIdOptional(id).map(circleConverter::convertNotNull);
+    }
+
+    @Transactional
+    public CircleEntity createCircle(String name) {
+        var circleModel = new CircleModel().withName(name);
+        circleRepository.persist(circleModel);
+        return circleConverter.convert(circleModel);
     }
 }

@@ -45,13 +45,15 @@ services:
     restart: always
     ports:
       - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass redis
+    command: redis-server --save 20 1 --loglevel warning
     environment:
       REDIS_HOST: cache
       REDIS_PORT: 6379
       REDIS_PASSWORD: redis
     volumes: 
       - cache:/data
+    networks:
+      - private-network
 
   python-app:
     build: ./python

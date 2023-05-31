@@ -9,6 +9,7 @@ import javax.ws.rs.ext.Provider;
 public class ThrowableErrorMapper implements ExceptionMapper<Throwable> {
 
     @Override public Response toResponse(final Throwable exception) {
+        exception.printStackTrace();
         if (exception instanceof ErrorCode.RuntimeError)
             return ((ErrorCode.RuntimeError) exception).asResponse();
 

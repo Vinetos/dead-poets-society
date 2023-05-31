@@ -48,6 +48,7 @@ import java.util.Optional;
         return letterRepository.findByIdOptional(id).map(converter::convertNotNull);
     }
 
+    @Transactional
     public LetterEntity postLetters(Long circleId, CircleApi.postLetters.Request request) {
         var letterModel = new LetterModel().withDate(ZonedDateTime.now())
                                            .withSubject(request.subject)
