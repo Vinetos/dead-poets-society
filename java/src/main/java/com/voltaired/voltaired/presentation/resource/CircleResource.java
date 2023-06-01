@@ -55,8 +55,8 @@ import static com.voltaired.voltaired.util.Optionals.opt;
     }
 
     @Override
-    public CircleApi.createCircle.Response createCircle(String name) {
-        val opt = opt(circleService.createCircle(name)).map(circle -> new CircleApi.createCircle.Response(
+    public CircleApi.createCircle.Response createCircle(createCircle.Request request) {
+        val opt = opt(circleService.createCircle(request.name)).map(circle -> new CircleApi.createCircle.Response(
                 circle.getId(),
                 circle.getName()
         ));

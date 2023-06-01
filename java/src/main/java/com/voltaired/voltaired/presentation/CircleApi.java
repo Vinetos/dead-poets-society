@@ -21,6 +21,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
     @GET List<getAllCircles.Response> getAllCircles();
 
+    @POST createCircle.Response createCircle(createCircle.Request request);
+
     @GET @Path("{id}") getCircle.Response getCircle(@PathParam("id") Long id);
 
     @PUT
@@ -40,10 +42,11 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     @DELETE
     @Path("{id}") deleteCircles deleteCircles(@PathParam("id") Long id);
 
-    @POST
-    @Path("create/{name}") createCircle.Response createCircle(@PathParam("name") String name);
-
     interface createCircle {
+
+        @With @Data @AllArgsConstructor class Request {
+            public String name;
+        }
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public String name;
