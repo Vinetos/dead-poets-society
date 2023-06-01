@@ -10,17 +10,17 @@ def index():
 @app.get("/circles")
 def circles_get():
     circles = Circle.query.all()
-    return dumps([circle.__dict__ for circle in circles]) if circles else {"error": "No circles found"}, 404
+    return dumps([circle.__dict__ for circle in circles]) if circles else [], 200
 
 @app.get("/circle/<string:circle_name>")
 def circle_get_name(circle_name):
     found = Circle.query.filter_by(name=circle_name).first()
-    return dumps(found.__dict__) if found else {"error": "Circle not found"}, 404
+    return dumps(found.__dict__) if found else {"error": "Circle " + circle_name + " not found"}, 404
 
 @app.get("/circle/<int:id>")
 def circle_get_id(id):
     circle = Circle.query.get(id)
-    return dumps(circle.__dict__) if circle else {"error": "Circle not found"}, 404
+    return dumps(circle.__dict__) if circle else {"error": "Circle " + id + " not found"}, 404
 
 @app.get("/circle/<int:circle_id>/writers")
 def circle_get_writers(circle_id):
@@ -28,7 +28,7 @@ def circle_get_writers(circle_id):
     if not writers_ids:
         return {"error": "Circle not Found"}, 404
     writers = Writer.query.filter(Writer.id.in_([writer_id.writer_id for writer_id in writers_ids])).all()
-    return dumps([writer.__dict__ for writer in writers]) if writers else {"error": "No writers found in this circle"}, 404
+    return dumps([writer.__dict__ for writer in writers]) if writers else [], 200
 
 @app.get("/circle/<int:circle_id>/letters")
 def circle_get_letters(circle_id):
@@ -36,12 +36,12 @@ def circle_get_letters(circle_id):
     if not letters_ids:
         return {"error": "Circle not Found"}, 404
     letters = Letter.query.filter(Letter.id.in_([letter_id.letter_id for letter_id in letters_ids])).all()
-    return dumps([letter.__dict__ for letter in letters]) if letters else {"error": "No letters found in this circle"}, 404
+    return dumps([letter.__dict__ for letter in letters]) if letters else [], 200
 
 @app.get("/writers")
 def writers_get():
     writer = Writer.query.all()
-    return dumps([writer.__dict__ for writer in writer]) if writer else {"error": "No writers found"}, 404
+    return dumps([writer.__dict__ for writer in writer]) if writer else [], 200
 
 @app.get("/writers/<string:writer_name>")
 def writer_get_name(writer_name):
@@ -58,7 +58,7 @@ def writer_get_id(id):
 @app.get("/letters")
 def letters_get():
     letters = Letter.query.all()
-    return dumps([letter.__dict__ for letter in letters]) if letters else {"error": "No letters found"}, 404
+    return dumps([letter.__dict__ for letter in letters]) if letters else [], 200
 
 @app.get("/letters/<int:id>")
 def letter_get_id(id):
