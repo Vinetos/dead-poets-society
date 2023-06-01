@@ -28,6 +28,9 @@ services:
       OIDC_CLIENT_ID: apache-oidc
       OIDC_CLIENT_SECRET: 654ckxBaivlZkQVOzcyuWrsGnfDxc3mQ
       OIDC_CRYPTO_PASSPHRASE: theMegaPassPhraseOfTheDeath
+    extra_hosts: # Debug only
+      - "host.docker.internal:host-gateway"
+
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest

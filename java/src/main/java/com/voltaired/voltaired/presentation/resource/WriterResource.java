@@ -4,6 +4,7 @@ import com.voltaired.voltaired.ErrorCodes;
 import com.voltaired.voltaired.domain.service.WriterService;
 import com.voltaired.voltaired.presentation.CircleApi;
 import com.voltaired.voltaired.presentation.WriterApi;
+import com.voltaired.voltaired.util.auth.AuthenticationContext;
 import lombok.val;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,8 +14,10 @@ import java.util.List;
 @ApplicationScoped public class WriterResource implements WriterApi {
 
     @Inject WriterService writerService;
+    @Inject AuthenticationContext authenticationContext;
 
     @Override public List<getAllWriters.Response> getAllWriters() {
+        System.out.println("User: " + authenticationContext.getCurrentUser().getEmail());
         return writerService.getWriters().map(writer -> new getAllWriters.Response(
                 writer.getId(),
                 writer.getTitle(),
