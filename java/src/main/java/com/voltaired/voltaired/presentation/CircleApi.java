@@ -1,6 +1,5 @@
 package com.voltaired.voltaired.presentation;
 
-import io.quarkus.security.Authenticated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.With;
@@ -25,26 +24,31 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     @GET @Path("{id}") getCircle.Response getCircle(@PathParam("id") Long id);
 
     @PUT
-    @Authenticated
     @Path("{id}/enter") enterCircle.Response enterCircle(@PathParam("id") Long id, enterCircle.Request request);
 
     @PUT
-    @Authenticated
     @Path("{id}/leave") void leaveCircle(@PathParam("id") Long id, leaveCircle.Request request);
 
     @POST
-    @Authenticated
     @Path("{id}/letters") postLetters.Response postLetters(@PathParam("id") Long id, postLetters.Request request);
 
     @POST
-    @Authenticated
     @Path("{id}/letters/{letterId}") postLettersReply.Response postLetterReply(@PathParam("id") Long id,
-                                                                          @PathParam("letterId") Long letterId,
+                                                                               @PathParam("letterId") Long letterId,
                                                                                postLettersReply.Request request);
 
     @DELETE
-    @Authenticated
     @Path("{id}") deleteCircles deleteCircles(@PathParam("id") Long id);
+
+    @POST
+    @Path("create/{name}") createCircle.Response createCircle(@PathParam("name") String name);
+
+    interface createCircle {
+        @With @Data @AllArgsConstructor class Response {
+            public Long id;
+            public String name;
+        }
+    }
 
     interface getAllCircles {
         @With @Data @AllArgsConstructor class Response {
@@ -96,6 +100,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
             public Long writerId;
         }
     }
+
     interface postLettersReply {
         @With @Data @AllArgsConstructor class Request {
             public String content;

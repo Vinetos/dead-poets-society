@@ -18,6 +18,7 @@ public class WriterConverter implements Converter<WriterModel, WriterEntity> {
         return new WriterEntity().withId(input.id)
                                  .withName(input.name)
                                  .withPenName(input.penName)
+                                 .withTitle(input.title)
                                  .withCircles(() -> input.circles.stream()
                                                                  .map(circleConverter::convertNotNull)
                                                                  .toList())

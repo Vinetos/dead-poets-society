@@ -28,9 +28,21 @@ services:
       OIDC_CLIENT_ID: apache-oidc
       OIDC_CLIENT_SECRET: 654ckxBaivlZkQVOzcyuWrsGnfDxc3mQ
       OIDC_CRYPTO_PASSPHRASE: theMegaPassPhraseOfTheDeath
-    extra_hosts: # Debug only
-      - "host.docker.internal:host-gateway"
 
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    environment:
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis
+    volumes:
+      - cache:/data
+    networks:
+      - private-network
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -56,8 +68,15 @@ services:
     depends_on:
       - "postgres"
       - "keycloak"
+      - "cache"
     networks:
       - private-network
+    environment:
+      QUARKUS_OIDC_AUTH_SERVER_URL: http://keycloak:8080/realms/deadpoetssociety/
+
+volumes:
+  cache:
+    driver: local
 
 networks:
   public-network:

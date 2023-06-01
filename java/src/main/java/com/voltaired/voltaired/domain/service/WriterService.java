@@ -3,10 +3,12 @@ package com.voltaired.voltaired.domain.service;
 import com.voltaired.voltaired.converter.CircleConverter;
 import com.voltaired.voltaired.converter.LetterConverter;
 import com.voltaired.voltaired.converter.WriterConverter;
+import com.voltaired.voltaired.data.model.WriterModel;
 import com.voltaired.voltaired.data.repository.WriterRepository;
 import com.voltaired.voltaired.domain.entity.CircleEntity;
 import com.voltaired.voltaired.domain.entity.WriterEntity;
 import com.voltaired.voltaired.presentation.CircleApi;
+import com.voltaired.voltaired.presentation.WriterApi;
 import com.voltaired.voltaired.util.Seq;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -41,6 +43,16 @@ import java.util.Optional;
     public Optional<WriterEntity> getWriter(Long id) {
         return writerRepository.findByIdOptional(id).map(writerConverter::convertNotNull);
     }
+
+    @Transactional
+    public WriterEntity createWriter(WriterApi.createWriter.Request request) {
+        var writerModel = new WriterModel().withName(request.name)
+                                           .withPenName(request.penName)
+                                           .withTitle(request.title);
+        writerRepository.persist(writerModel);
+        return writerConverter.convert(writerModel);
+    }
+
 
     @Transactional
     public List<Long> enterCircle(Long circleId, Long writerId) {

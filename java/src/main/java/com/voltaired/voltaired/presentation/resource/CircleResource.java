@@ -8,8 +8,6 @@ import com.voltaired.voltaired.domain.service.CircleService;
 import com.voltaired.voltaired.domain.service.LetterService;
 import com.voltaired.voltaired.domain.service.WriterService;
 import com.voltaired.voltaired.presentation.CircleApi;
-import com.voltaired.voltaired.presentation.LetterApi;
-import com.voltaired.voltaired.util.Optionals;
 import lombok.val;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -44,6 +42,27 @@ import static com.voltaired.voltaired.util.Optionals.opt;
         return opt.get();
     }
 
+    @Override
+    public postLettersReply.Response postLetterReply(Long id, Long letterId, postLettersReply.Request request) {
+        // TODO: 26/05/2023 Implements me
+        return null;
+    }
+
+    @Override public deleteCircles deleteCircles(Long id) {
+        // todo call the service to delete the circle
+
+        return null;
+    }
+
+    @Override
+    public CircleApi.createCircle.Response createCircle(String name) {
+        val opt = opt(circleService.createCircle(name)).map(circle -> new CircleApi.createCircle.Response(
+                circle.getId(),
+                circle.getName()
+        ));
+        return opt.get();
+    }
+
     @Override public enterCircle.Response enterCircle(Long id, enterCircle.Request request) {
         return new enterCircle.Response(writerService.enterCircle(id, request.writerId));
     }
@@ -62,17 +81,5 @@ import static com.voltaired.voltaired.util.Optionals.opt;
                 letter.writer.getId()
         ));
         return opt.get();
-    }
-
-    @Override
-    public postLettersReply.Response postLetterReply(Long id, Long letterId, postLettersReply.Request request) {
-        // TODO: 26/05/2023 Implements me
-        return null;
-    }
-
-    @Override public deleteCircles deleteCircles(Long id) {
-        // todo call the service to delete the circle
-
-        return null;
     }
 }

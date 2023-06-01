@@ -24,6 +24,30 @@ public interface WriterApi {
     @Path("/{id}")
     WriterApi.getWriter.Response getWriter(@PathParam("id") Long id);
 
+    @POST
+    @Path("/") createWriter.Response createWriter(createWriter.Request request);
+
+    interface createWriter {
+        @With
+        @Data
+        @AllArgsConstructor
+        class Response {
+            public long id;
+            public String name;
+            public String penName;
+            public String title;
+        }
+
+        @With
+        @Data
+        @AllArgsConstructor
+        class Request {
+            public String name;
+            public String penName;
+            public String title;
+        }
+    }
+
     interface getAllWriters {
         @With
         @Data
