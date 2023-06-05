@@ -1,0 +1,325 @@
+openapi: 3.0.0
+info:
+  title: Flask API for the Letters Project
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Get the API root
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+  /circles:
+    get:
+      summary: Get all circles
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+        '404':
+          description: Circle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /circle/{circle_name}:
+    get:
+      summary: Get a circle by name
+      parameters:
+        - name: circle_name
+          in: path
+          description: Name of the circle
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+        '404':
+          description: Circle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /circle/{id}:
+    get:
+      summary: Get a circle by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the circle
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+        '404':
+          description: Circle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /circle/{circle_id}/writers:
+    get:
+      summary: Get writers of a circle
+      parameters:
+        - name: circle_id
+          in: path
+          description: ID of the circle
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+        '404':
+          description: Circle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /circle/{circle_id}/letters:
+    get:
+      summary: Get letters of a circle
+      parameters:
+        - name: circle_id
+          in: path
+          description: ID of the circle
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    content:
+                      type: string
+        '404':
+          description: Circle not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /writers:
+    get:
+      summary: Get all writers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+        '404':
+          description: Writers not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /writers/{writer_name}:
+    get:
+      summary: Get a writer by name
+      parameters:
+        - name: writer_name
+          in: path
+          description: Name of the writer
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+        '404':
+          description: Writer not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /writers/{id}:
+    get:
+      summary: Get a writer by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the writer
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+        '404':
+          description: Writer not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /letters:
+    get:
+      summary: Get all letters
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    content:
+                      type: string
+        '404':
+          description: Letters not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /letters/{id}:
+    get:
+      summary: Get a letter by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the letter
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: string
+        '404':
+          description: Letter not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /letter/written_by/{writer_id}:
+    get:
+      summary: Get letters written by a writer
+      parameters:
+        - name: writer_id
+          in: path
+          description: ID of the writer
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    content:
+                      type: string
+        '404':
+          description: No letters found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
