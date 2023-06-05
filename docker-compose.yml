@@ -3,8 +3,6 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15.2
-    ports:
-      - "5432:5432"
     networks:
       - private-network
     environment:
@@ -43,6 +41,7 @@ services:
       - cache:/data
     networks:
       - private-network
+      - public-network
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -59,7 +58,6 @@ services:
     build: ./python
     depends_on:
       - "postgres"
-      #- "keycloak"
     networks:
       - private-network
 
