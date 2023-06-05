@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,7 +24,11 @@ public class LetterModel extends PanacheEntity {
     public @NotNull ZonedDateTime date;
     public @NotBlank String subject;
     public @NotBlank String content;
-    public @NotNull @ManyToMany(mappedBy = "letters") List<CircleModel> circles;
+    public @NotNull @ManyToMany @JoinTable(
+            name = "circle_letters",
+            joinColumns = @JoinColumn(name = "circle_id"),
+            inverseJoinColumns = @JoinColumn(name = "letter_id"))
+    List<CircleModel> circles;
     public @ManyToOne WriterModel writer;
 
 }

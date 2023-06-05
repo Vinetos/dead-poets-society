@@ -1,5 +1,7 @@
 FROM python:3.8-slim-buster
 
+EXPOSE 5000
+
 # Set the working directory in the container
 WORKDIR /application
 
@@ -12,8 +14,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code into the container
 COPY . .
-
-EXPOSE 5000
 
 # Set the entry point command to run the Flask application
 CMD ["python", "run.py"]

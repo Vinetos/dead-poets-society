@@ -5,9 +5,13 @@ services:
     image: postgres:15.2
     networks:
       - private-network
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - /tmp/data:/var/lib/postgresql/data
 
   apache-oidc:
     build: ./apache-oidc

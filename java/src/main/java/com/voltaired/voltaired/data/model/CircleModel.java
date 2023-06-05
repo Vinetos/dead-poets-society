@@ -22,8 +22,8 @@ public class CircleModel extends PanacheEntity {
 
     public @ManyToMany(cascade = CascadeType.ALL) @JoinTable(
             name = "circle_letters",
-            joinColumns = @JoinColumn(name = "writer_id"),
-            inverseJoinColumns = @JoinColumn(name = "letter_id")
+            joinColumns = @JoinColumn(name = "letter_id"),
+            inverseJoinColumns = @JoinColumn(name = "circle_id")
     ) List<LetterModel> letters;
     public @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

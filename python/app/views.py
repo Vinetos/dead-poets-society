@@ -12,17 +12,17 @@ def circles_get():
     circles = Circle.query.all()
     return dumps([circle.__dict__ for circle in circles]) if circles else [], 200
 
-@app.get("/circle/<string:circle_name>")
+@app.get("/circles/<string:circle_name>")
 def circle_get_name(circle_name):
     found = Circle.query.filter_by(name=circle_name).first()
     return dumps(found.__dict__) if found else {"error": "Circle " + circle_name + " not found"}, 404
 
-@app.get("/circle/<int:id>")
+@app.get("/circles/<int:id>")
 def circle_get_id(id):
     circle = Circle.query.get(id)
-    return dumps(circle.__dict__) if circle else {"error": "Circle " + id + " not found"}, 404
+    return dumps(circle.__dict__) if circle else {"error": f"Circle ${id} not found"}, 404
 
-@app.get("/circle/<int:circle_id>/writers")
+@app.get("/circles/<int:circle_id>/writers")
 def circle_get_writers(circle_id):
     writers_ids = circle_writers.query.filter_by(circle_id=circle_id).all()
     if not writers_ids:
@@ -30,7 +30,7 @@ def circle_get_writers(circle_id):
     writers = Writer.query.filter(Writer.id.in_([writer_id.writer_id for writer_id in writers_ids])).all()
     return dumps([writer.__dict__ for writer in writers]) if writers else [], 200
 
-@app.get("/circle/<int:circle_id>/letters")
+@app.get("/circles/<int:circle_id>/letters")
 def circle_get_letters(circle_id):
     letters_ids = circle_letters.query.filter_by(circle_id=circle_id).all()
     if not letters_ids:
