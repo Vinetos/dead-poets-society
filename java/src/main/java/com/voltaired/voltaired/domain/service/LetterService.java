@@ -7,7 +7,7 @@ import com.voltaired.voltaired.data.repository.LetterRepository;
 import com.voltaired.voltaired.data.repository.WriterRepository;
 import com.voltaired.voltaired.domain.entity.LetterEntity;
 import com.voltaired.voltaired.presentation.CircleApi;
-import io.quarkus.redis.client.RedisClientName;
+import com.voltaired.voltaired.presentation.LetterApi;
 import io.quarkus.redis.datasource.RedisDataSource;
 import io.quarkus.redis.datasource.pubsub.PubSubCommands;
 
@@ -28,12 +28,10 @@ import java.util.Optional;
 
     @Inject CircleRepository circleRepository;
 
-    @Inject @RedisClientName("redis") RedisDataSource redisDataSource;
-
-    private final PubSubCommands<String> pub;
+    private final PubSubCommands<LetterApi.getLetter.Response> pub;
 
     public LetterService(RedisDataSource ds) {
-        this.pub = ds.pubsub(String.class);
+        this.pub = ds.pubsub(LetterApi.getLetter.Response.class);
     }
 
     @Transactional public List<LetterEntity> findInCircle(Long circleId) {
@@ -56,8 +54,17 @@ import java.util.Optional;
                                            .withCircles(Collections.singletonList(circleRepository.findById(circleId)))
                                            .withWriter(writerRepository.findById(request.writerId));
         letterRepository.persist(letterModel);
-        // TODO: generate log
-        pub.publish("Letter", "posted letter");
+        pub.publish(
+                "Letter",
+                new LetterApi.getLetter.Response(
+                        letterModel.id,
+                        letterModel.date,
+                        letterModel.subject,
+                        letterModel.content,
+                        List.of(circleId),
+                        request.writerId
+                )
+        );
         return converter.convert(letterModel);
     }
 

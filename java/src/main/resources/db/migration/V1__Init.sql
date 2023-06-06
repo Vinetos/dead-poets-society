@@ -18,10 +18,10 @@ create table circle_writers
 (
     writer_id bigint not null
         constraint circle_writer_to_writer
-            references circle,
+            references writer,
     circle_id bigint not null
         constraint circle_writers_to_circle
-            references writer
+            references circle
 );
 
 create table letter
@@ -40,9 +40,9 @@ create table circle_letters
 (
     letter_id bigint not null
         constraint circle_letters_to_letter
-            references circle,
+            references letter,
     circle_id bigint not null
         constraint circle_letters_to_circle
-            references letter
+            references circle
 );
 

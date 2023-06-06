@@ -25,13 +25,13 @@ public class CircleModel extends PanacheEntity {
 
     public @ManyToMany @JoinTable(
             name = "circle_letters",
-            joinColumns = @JoinColumn(name = "letter_id"),
-            inverseJoinColumns = @JoinColumn(name = "circle_id")
+            joinColumns = @JoinColumn(name = "circle_id"),
+            inverseJoinColumns = @JoinColumn(name = "letter_id")
     ) List<LetterModel> letters;
     public @ManyToMany
     @JoinTable(
             name = "circle_writers",
-            joinColumns = @JoinColumn(name = "writer_id"),
-            inverseJoinColumns = @JoinColumn(name = "circle_id"))
+            joinColumns = @JoinColumn(name = "circle_id"),
+            inverseJoinColumns = @JoinColumn(name = "writer_id"))
     List<WriterModel> writers;
 }

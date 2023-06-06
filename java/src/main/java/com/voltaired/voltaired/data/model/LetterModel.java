@@ -27,8 +27,8 @@ public class LetterModel extends PanacheEntity {
     public @NotBlank String content;
     public @NotNull @ManyToMany @JoinTable(
             name = "circle_letters",
-            joinColumns = @JoinColumn(name = "circle_id"),
-            inverseJoinColumns = @JoinColumn(name = "letter_id"))
+            joinColumns = @JoinColumn(name = "letter_id"),
+            inverseJoinColumns = @JoinColumn(name = "circle_id"))
     List<CircleModel> circles;
     public @ManyToOne WriterModel writer;
 

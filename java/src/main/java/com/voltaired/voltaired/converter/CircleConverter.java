@@ -6,7 +6,7 @@ import com.voltaired.voltaired.util.Converter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @ApplicationScoped public class CircleConverter implements Converter<CircleModel, CircleEntity> {
 
@@ -17,11 +17,18 @@ import javax.transaction.Transactional;
         return new CircleEntity().withId(input.id)
                                  .withName(input.name)
                                  .withWriters(input.writers.stream()
-                                                                 .map(writerConverter::convert)
-                                                                 .toList())
+                                                           .map(writerConverter::convertWithoutResolve)
+                                                           .toList())
                                  .withLetters(input.letters.stream()
-                                                                 .map(letterConverter::convert)
-                                                                 .toList());
+                                                           .map(letterConverter::convertWithoutResolve)
+                                                           .toList());
+    }
+
+    public CircleEntity convertWithoutResolve(CircleModel input) {
+        return new CircleEntity().withId(input.id)
+                                 .withName(input.name)
+                                 .withWriters(new ArrayList<>())
+                                 .withLetters(new ArrayList<>());
     }
 
 }

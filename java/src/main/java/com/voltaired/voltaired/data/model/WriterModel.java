@@ -22,8 +22,10 @@ public class WriterModel extends PanacheEntity {
     public @NotBlank String penName;
 
     public @OneToMany(cascade = CascadeType.ALL, mappedBy = "writer") List<LetterModel> letters;
-    public @ManyToMany
-    @JoinTable(name = "circle_writers", joinColumns = @JoinColumn(name = "circle_id"), inverseJoinColumns =
-    @JoinColumn(name = "writer_id")) List<CircleModel> circles;
+    public @ManyToMany @JoinTable(
+            name = "circle_writers",
+            joinColumns = @JoinColumn(name = "writer_id"),
+            inverseJoinColumns = @JoinColumn(name = "circle_id"))
+    List<CircleModel> circles;
 
 }

@@ -33,6 +33,7 @@ public interface LetterApi {
     @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
     @GET @Path("{id}") getLetter.Response getLetter(@PathParam("id") Long id);
     interface getAllLetters {
+        @Schema(name = "getAllLetters.Response")
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public ZonedDateTime date;
@@ -44,6 +45,7 @@ public interface LetterApi {
     }
 
     interface getLetter {
+        @Schema(name = "getLetter.Response")
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public ZonedDateTime date;

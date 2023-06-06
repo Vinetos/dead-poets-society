@@ -24,8 +24,8 @@ import static com.voltaired.voltaired.util.Optionals.opt;
                 writer.getTitle(),
                 writer.getName(),
                 writer.getPenName(),
-                writer.getLetters().get(),
-                writer.getCircles().get()
+                writer.getLetters(),
+                writer.getCircles()
         )).toList();
     }
 
@@ -35,8 +35,8 @@ import static com.voltaired.voltaired.util.Optionals.opt;
                 writer.getTitle(),
                 writer.getName(),
                 writer.getPenName(),
-                writer.getLetters().get(),
-                writer.getCircles().get()
+                writer.getLetters(),
+                writer.getCircles()
         ));
         if (opt.isEmpty()) throw ErrorCodes.WRITER_NOT_FOUND.with(id).get();
         return opt.get();

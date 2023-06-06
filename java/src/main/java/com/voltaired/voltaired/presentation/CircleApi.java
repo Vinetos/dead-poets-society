@@ -70,7 +70,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
     @POST @Path("{id}/letters") postLetter.Response postLetter(@PathParam("id") Long id, postLetter.Request request);
 
-    @Operation(summary = "Post a letter reply in a circle", description = "Returns the letter reply posted in the circle.")
+    @Operation(summary = "Post a letter reply in a circle (NOT IMPLEMENTED)", description = "Returns the letter reply posted in the circle.")
     @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
             postLettersReply.Response.class)))
     @APIResponse(description = "Invalid JWT token", responseCode = "401")
@@ -86,11 +86,12 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     @DELETE @Path("{id}") deleteCircles.Response deleteCircles(@PathParam("id") Long id);
 
     interface createCircle {
-
+        @Schema(name = "createCircle.Request")
         @With @Data @AllArgsConstructor @NoArgsConstructor class Request {
             public String name;
         }
 
+        @Schema(name = "createCircle.Response")
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public String name;
@@ -110,6 +111,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     }
 
     interface getCircle {
+        @Schema(name = "getCircle.Response")
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public String name;
@@ -119,32 +121,38 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     }
 
     interface enterCircle {
+        @Schema(name = "enterCircle.Request")
         @With @Data @AllArgsConstructor @NoArgsConstructor class Request {
             public Long writerId;
         }
 
+        @Schema(name = "enterCircle.Response")
         @With @Data @AllArgsConstructor class Response {
             public List<Long> circlesId;
         }
     }
 
     interface leaveCircle {
+        @Schema(name = "leaveCircle.Request")
         @With @Data @AllArgsConstructor @NoArgsConstructor class Request {
             public Long writerId;
         }
 
+        @Schema(name = "leaveCircle.Response")
         @With @Data @AllArgsConstructor class Response {
             public List<Long> circlesId;
         }
     }
 
     interface postLetter {
+        @Schema(name = "postLetter.Request")
         @With @Data @AllArgsConstructor class Request {
             public String subject;
             public String content;
             public Long writerId;
         }
 
+        @Schema(name = "postLetter.Response")
         @With @Data @AllArgsConstructor class Response {
             public Long letterId;
             public ZonedDateTime date;
@@ -172,6 +180,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     }
 
     interface deleteCircles {
+        @Schema(name = "deleteCircles.Response")
         @With @Data @AllArgsConstructor class Response {
 
         }

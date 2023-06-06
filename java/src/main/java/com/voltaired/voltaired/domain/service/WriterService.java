@@ -1,7 +1,5 @@
 package com.voltaired.voltaired.domain.service;
 
-import com.voltaired.voltaired.converter.CircleConverter;
-import com.voltaired.voltaired.converter.LetterConverter;
 import com.voltaired.voltaired.converter.WriterConverter;
 import com.voltaired.voltaired.data.model.WriterModel;
 import com.voltaired.voltaired.data.repository.WriterRepository;
@@ -18,22 +16,12 @@ import java.util.Optional;
 
     @Inject WriterRepository writerRepository;
     @Inject WriterConverter writerConverter;
-    @Inject CircleConverter circleConverter;
-    @Inject LetterConverter letterConverter;
 
+    @Transactional
     public List<WriterEntity> getWriters() {
         return writerRepository.findAll()
                                .stream()
-                               .map(writer -> new WriterEntity().withId(writer.id)
-                                                                .withTitle(writer.title)
-                                                                .withName(writer.name)
-                                                                .withPenName(writer.penName)
-                                                                .withCircles(() -> writer.circles.stream()
-                                                                                                 .map(circleConverter::convert)
-                                                                                                 .toList())
-                                                                .withLetters(() -> writer.letters.stream()
-                                                                                                 .map(letterConverter::convert)
-                                                                                                 .toList())).toList();
+                               .map(writerConverter::convert).toList();
     }
 
     public Optional<WriterEntity> getWriter(Long id) {

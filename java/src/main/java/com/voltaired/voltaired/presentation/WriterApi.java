@@ -47,6 +47,7 @@ public interface WriterApi {
     @POST @Path("/") createWriter.Response createWriter(createWriter.Request request);
 
     interface createWriter {
+        @Schema(name = "createWriter.Response")
         @With
         @Data
         @AllArgsConstructor
@@ -56,7 +57,7 @@ public interface WriterApi {
             public String penName;
             public String title;
         }
-
+        @Schema(name = "createWriter.Request")
         @With
         @Data
         @AllArgsConstructor
@@ -68,6 +69,7 @@ public interface WriterApi {
     }
 
     interface getAllWriters {
+        @Schema(name = "getAllWriters.Response")
         @With
         @Data
         @AllArgsConstructor
@@ -83,6 +85,7 @@ public interface WriterApi {
     }
 
     interface getWriter {
+        @Schema(name = "getWriter.Response")
         @With
         @Data
         @AllArgsConstructor

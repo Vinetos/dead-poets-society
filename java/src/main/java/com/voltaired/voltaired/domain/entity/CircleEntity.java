@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 @AllArgsConstructor @NoArgsConstructor @With @Data public class CircleEntity {
     public long id;

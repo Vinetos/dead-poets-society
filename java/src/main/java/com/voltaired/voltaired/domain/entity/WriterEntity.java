@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +17,7 @@ public class WriterEntity {
     public String name;
     public String penName;
 
-    public Supplier<List<LetterEntity>> letters;
-    public Supplier<List<CircleEntity>> circles;
+    public List<LetterEntity> letters;
+    public List<CircleEntity> circles;
 
 }
