@@ -9,30 +9,19 @@ class Circle(db.Model):
     def __repr__(self):
         return "<Circle {}>".format(self.id)
 
-    def __dict__(self):
-        return {
-            'id': self.id,
-            'name': self.name
-        }
-
 
 class Letter(db.Model):
     __tablename__ = 'letter'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
-    subject = db.Column(db.String(255))
     content = db.Column(db.String)
+    subject = db.Column(db.String(255))
+    writer_id = db.Column(db.BigInteger, db.ForeignKey('writer.id'))
+    writer = db.relationship('Writer', backref='letters')
 
     def __repr__(self):
         return "<Letter {}>".format(self.id)
 
-    def __dict__(self):
-        return {
-            'id': self.id,
-            'date': self.date,
-            'subject': self.subject,
-            'content': self.content
-        }
 
 
 class Writer(db.Model):
@@ -45,13 +34,6 @@ class Writer(db.Model):
     def __repr__(self):
         return "<Writer {}>".format(self.id)
 
-    def __dict__(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'penname': self.penname,
-            'title': self.title
-        }
 
 
 class CircleWriters(db.Model):
