@@ -48,9 +48,8 @@ import static com.voltaired.voltaired.util.Optionals.opt;
         return null;
     }
 
-    @Override public deleteCircles deleteCircles(Long id) {
+    @Override public deleteCircles.Response deleteCircles(Long id) {
         // todo call the service to delete the circle
-
         return null;
     }
 
@@ -67,12 +66,12 @@ import static com.voltaired.voltaired.util.Optionals.opt;
         return new enterCircle.Response(writerService.enterCircle(id, request.writerId));
     }
 
-    @Override public void leaveCircle(Long id, leaveCircle.Request request) {
-        writerService.leaveCircle(id, request.writerId);
+    @Override public leaveCircle.Response leaveCircle(Long id, leaveCircle.Request request) {
+        return new leaveCircle.Response(writerService.leaveCircle(id, request.writerId));
     }
 
-    @Override public CircleApi.postLetters.Response postLetters(Long circleId, postLetters.Request request) {
-        val opt = opt(letterService.postLetters(circleId, request)).map(letter -> new postLetters.Response(
+    @Override public postLetter.Response postLetter(Long circleId, postLetter.Request request) {
+        val opt = opt(letterService.postLetters(circleId, request)).map(letter -> new postLetter.Response(
                 letter.getId(),
                 letter.getDate(),
                 letter.getCircle().transactionalGet().stream().map(CircleEntity::getId).toList().get(0),

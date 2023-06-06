@@ -60,7 +60,7 @@ import java.util.Optional;
     }
 
     @Transactional
-    public void leaveCircle(Long circleId, Long writerId) {
-        writerRepository.leaveCircle(circleId, writerId);
+    public List<Long> leaveCircle(Long circleId, Long writerId) {
+        return writerRepository.leaveCircle(circleId, writerId).stream().map(circle -> circle.id).toList();
     }
 }

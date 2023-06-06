@@ -3,6 +3,10 @@ package com.voltaired.voltaired.presentation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.With;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,34 +23,73 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/circles") @Produces(APPLICATION_JSON) @Consumes(APPLICATION_JSON) public interface CircleApi {
 
-    @GET List<getAllCircles.Response> getAllCircles();
+    @GET
+    @Operation(summary = "Get all the circles",
+            description = "Returns a list of all the circles")
+    @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
+            getAllCircles.Response[].class)))
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
+    List<getAllCircles.Response> getAllCircles();
 
+    @Operation(summary = "Create a circle",
+            description = "Returns the created circle")
+    @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
+            createCircle.Response.class)))
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
     @POST createCircle.Response createCircle(createCircle.Request request);
 
+    @Operation(summary = "Get a circle",
+            description = "Returns the circle")
+    @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
+            getCircle.Response.class)))
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
     @GET @Path("{id}") getCircle.Response getCircle(@PathParam("id") Long id);
 
-    @PUT
-    @Path("{id}/enter") enterCircle.Response enterCircle(@PathParam("id") Long id, enterCircle.Request request);
+    @Operation(summary = "Enter in a circle", description = "Returns the list of the circles ids of the user.")
+    @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
+            enterCircle.Response.class)))
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
+    @PUT @Path("{id}/enter") enterCircle.Response enterCircle(@PathParam("id") Long id, enterCircle.Request request);
 
-    @PUT
-    @Path("{id}/leave") void leaveCircle(@PathParam("id") Long id, leaveCircle.Request request);
+    @Operation(summary = "Leave in a circle", description = "Returns the list of the circles ids of the user.")
+    @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
+            leaveCircle.Response.class)))
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
+    @PUT @Path("{id}/leave") leaveCircle.Response leaveCircle(@PathParam("id") Long id, leaveCircle.Request request);
 
-    @POST
-    @Path("{id}/letters") postLetters.Response postLetters(@PathParam("id") Long id, postLetters.Request request);
+    @Operation(summary = "Post a letter in a circle", description = "Returns the letter posted in the circle.")
+    @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
+            postLetter.Response.class)))
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
+    @POST @Path("{id}/letters") postLetter.Response postLetter(@PathParam("id") Long id, postLetter.Request request);
 
-    @POST
-    @Path("{id}/letters/{letterId}") postLettersReply.Response postLetterReply(@PathParam("id") Long id,
+    @Operation(summary = "Post a letter reply in a circle", description = "Returns the letter reply posted in the circle.")
+    @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
+            postLettersReply.Response.class)))
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
+    @POST @Path("{id}/letters/{letterId}") postLettersReply.Response postLetterReply(@PathParam("id") Long id,
                                                                                @PathParam("letterId") Long letterId,
                                                                                postLettersReply.Request request);
 
-    @DELETE
-    @Path("{id}") deleteCircles deleteCircles(@PathParam("id") Long id);
+    @Operation(summary = "Delete a circle", description = "Returns nothing.")
+    @APIResponse(responseCode = "200", description = "The circle has been deleted")
+    @APIResponse(description = "Invalid JWT token", responseCode = "401")
+    @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
+    @DELETE @Path("{id}") deleteCircles.Response deleteCircles(@PathParam("id") Long id);
 
     interface createCircle {
 
         @With @Data @AllArgsConstructor class Request {
             public String name;
         }
+
         @With @Data @AllArgsConstructor class Response {
             public Long id;
             public String name;
@@ -54,7 +97,10 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     }
 
     interface getAllCircles {
+        @Schema(name = "getAllCircles.Response", description = "The response to a getAllCircles request, contains the"
+                                                               + " list of all the circles")
         @With @Data @AllArgsConstructor class Response {
+            @Schema(name = "id", description = "The Id of the circle", example = "8")
             public Long id;
             public String name;
             public List<Long> lettersId;
@@ -85,9 +131,13 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
         @With @Data @AllArgsConstructor class Request {
             public Long writerId;
         }
+
+        @With @Data @AllArgsConstructor class Response {
+            public List<Long> circlesId;
+        }
     }
 
-    interface postLetters {
+    interface postLetter {
         @With @Data @AllArgsConstructor class Request {
             public String subject;
             public String content;
@@ -121,10 +171,6 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     }
 
     interface deleteCircles {
-        @With @Data @AllArgsConstructor class Request {
-
-        }
-
         @With @Data @AllArgsConstructor class Response {
 
         }

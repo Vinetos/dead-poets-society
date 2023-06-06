@@ -25,9 +25,10 @@ public class WriterRepository implements PanacheRepository<WriterModel> {
         return circle.circles;
     }
 
-    public void leaveCircle(Long circleId, Long writerId) {
+    public List<CircleModel> leaveCircle(Long circleId, Long writerId) {
         val circle = findById(writerId);
         circle.circles.remove(circleRepository.findById(circleId));
+        return circle.circles;
     }
 
 }

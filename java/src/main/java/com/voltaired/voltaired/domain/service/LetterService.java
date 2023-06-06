@@ -49,7 +49,7 @@ import java.util.Optional;
     }
 
     @Transactional
-    public LetterEntity postLetters(Long circleId, CircleApi.postLetters.Request request) {
+    public LetterEntity postLetters(Long circleId, CircleApi.postLetter.Request request) {
         var letterModel = new LetterModel().withDate(ZonedDateTime.now())
                                            .withSubject(request.subject)
                                            .withContent(request.content)
