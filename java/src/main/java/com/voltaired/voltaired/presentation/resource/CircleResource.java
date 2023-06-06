@@ -48,9 +48,8 @@ import static com.voltaired.voltaired.util.Optionals.opt;
         return null;
     }
 
-    @Override public deleteCircles.Response deleteCircles(Long id) {
+    @Override public void deleteCircles(Long id) {
         circleService.deleteCircle(id);
-        return null;
     }
 
     @Override

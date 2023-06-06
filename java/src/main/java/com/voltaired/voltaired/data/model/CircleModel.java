@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Table(name = "circle")
@@ -23,15 +25,15 @@ import java.util.List;
 public class CircleModel extends PanacheEntity {
     public @NotBlank String name;
 
-    public @ManyToMany @JoinTable(
+    public @NotNull @ManyToMany @JoinTable(
             name = "circle_letters",
             joinColumns = @JoinColumn(name = "circle_id"),
             inverseJoinColumns = @JoinColumn(name = "letter_id")
-    ) List<LetterModel> letters;
-    public @ManyToMany
+    ) List<LetterModel> letters = new ArrayList<>();
+    public @NotNull @ManyToMany
     @JoinTable(
             name = "circle_writers",
             joinColumns = @JoinColumn(name = "circle_id"),
             inverseJoinColumns = @JoinColumn(name = "writer_id"))
-    List<WriterModel> writers;
+    List<WriterModel> writers = new ArrayList<>();
 }

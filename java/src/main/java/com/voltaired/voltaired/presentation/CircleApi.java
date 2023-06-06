@@ -70,20 +70,21 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
     @POST @Path("{id}/letters") postLetter.Response postLetter(@PathParam("id") Long id, postLetter.Request request);
 
-    @Operation(summary = "Post a letter reply in a circle (NOT IMPLEMENTED)", description = "Returns the letter reply posted in the circle.")
+    @Operation(summary = "Post a letter reply in a circle (NOT IMPLEMENTED)", description = "Returns the letter reply"
+                                                                                            + " posted in the circle.")
     @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation =
             postLettersReply.Response.class)))
     @APIResponse(description = "Invalid JWT token", responseCode = "401")
     @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
     @POST @Path("{id}/letters/{letterId}") postLettersReply.Response postLetterReply(@PathParam("id") Long id,
-                                                                               @PathParam("letterId") Long letterId,
-                                                                               postLettersReply.Request request);
+                                                                                     @PathParam("letterId") Long letterId,
+                                                                                     postLettersReply.Request request);
 
     @Operation(summary = "Delete a circle", description = "Returns nothing.")
-    @APIResponse(responseCode = "200", description = "The circle has been deleted")
+    @APIResponse(responseCode = "204", description = "The circle has been deleted")
     @APIResponse(description = "Invalid JWT token", responseCode = "401")
     @APIResponse(description = "Missing permissions to perform this action", responseCode = "403")
-    @DELETE @Path("{id}") deleteCircles.Response deleteCircles(@PathParam("id") Long id);
+    @DELETE @Path("{id}") void deleteCircles(@PathParam("id") Long id);
 
     interface createCircle {
         @Schema(name = "createCircle.Request")
@@ -178,12 +179,4 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
             public Long writerId;
         }
     }
-
-    interface deleteCircles {
-        @Schema(name = "deleteCircles.Response")
-        @With @Data @AllArgsConstructor class Response {
-
-        }
-    }
-
 }

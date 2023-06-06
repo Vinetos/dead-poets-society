@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Table(name = "letter")
@@ -29,7 +30,7 @@ public class LetterModel extends PanacheEntity {
             name = "circle_letters",
             joinColumns = @JoinColumn(name = "letter_id"),
             inverseJoinColumns = @JoinColumn(name = "circle_id"))
-    List<CircleModel> circles;
+    List<CircleModel> circles = new ArrayList<>();
     public @ManyToOne WriterModel writer;
 
 }

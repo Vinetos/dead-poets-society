@@ -36,6 +36,7 @@ import java.util.Optional;
         return circleConverter.convert(circleModel);
     }
 
+    @Transactional
     public void deleteCircle(Long id) {
         circleRepository.deleteById(id);
     }

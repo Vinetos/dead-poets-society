@@ -16,8 +16,14 @@ https://dps.epita.local/api/swagger
 Avec ce projet vous pourrez tester:
 - L'authentification
 - Le web server
-- Les API publiques et privées
+- Les API publique et privée
 - Le logger redis
+
+## API Publique
+Accessible depuis :
+https://dps.epita.local/circles
+https://dps.epita.local/letters
+https://dps.epita.local/writers
 
 ## Redis
 La partie Redis manquant d'instructions, nous avons mis en place un plugin logger directement sur une fonction, le POST de Letters (voir swagger).
