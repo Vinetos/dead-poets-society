@@ -1,6 +1,5 @@
 package com.voltaired.voltaired.domain.entity;
 
-import com.voltaired.voltaired.util.TransactionalSupplier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +14,6 @@ public class LetterEntity {
     public ZonedDateTime date;
     public String subject;
     public String content;
-    public TransactionalSupplier<List<CircleEntity>> circle;
+    public List<CircleEntity> circle;
     public WriterEntity writer;
 }

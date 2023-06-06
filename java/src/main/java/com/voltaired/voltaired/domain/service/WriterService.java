@@ -5,11 +5,8 @@ import com.voltaired.voltaired.converter.LetterConverter;
 import com.voltaired.voltaired.converter.WriterConverter;
 import com.voltaired.voltaired.data.model.WriterModel;
 import com.voltaired.voltaired.data.repository.WriterRepository;
-import com.voltaired.voltaired.domain.entity.CircleEntity;
 import com.voltaired.voltaired.domain.entity.WriterEntity;
-import com.voltaired.voltaired.presentation.CircleApi;
 import com.voltaired.voltaired.presentation.WriterApi;
-import com.voltaired.voltaired.util.Seq;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -24,24 +21,23 @@ import java.util.Optional;
     @Inject CircleConverter circleConverter;
     @Inject LetterConverter letterConverter;
 
-    public Seq<WriterEntity> getWriters() {
-        return () -> writerRepository.findAll()
-                                     .stream()
-                                     .limit(5)
-                                     .map(writer -> new WriterEntity().withId(writer.id)
-                                                                      .withTitle(writer.title)
-                                                                      .withName(writer.name)
-                                                                      .withPenName(writer.penName)
-                                                                      .withCircles(() -> writer.circles.stream()
-                                                                                                       .map(circleConverter::convertNotNull)
-                                                                                                       .toList())
-                                                                      .withLetters(() -> writer.letters.stream()
-                                                                                                       .map(letterConverter::convertNotNull)
-                                                                                                       .toList()));
+    public List<WriterEntity> getWriters() {
+        return writerRepository.findAll()
+                               .stream()
+                               .map(writer -> new WriterEntity().withId(writer.id)
+                                                                .withTitle(writer.title)
+                                                                .withName(writer.name)
+                                                                .withPenName(writer.penName)
+                                                                .withCircles(() -> writer.circles.stream()
+                                                                                                 .map(circleConverter::convert)
+                                                                                                 .toList())
+                                                                .withLetters(() -> writer.letters.stream()
+                                                                                                 .map(letterConverter::convert)
+                                                                                                 .toList())).toList();
     }
 
     public Optional<WriterEntity> getWriter(Long id) {
-        return writerRepository.findByIdOptional(id).map(writerConverter::convertNotNull);
+        return writerRepository.findByIdOptional(id).map(writerConverter::convert);
     }
 
     @Transactional
@@ -52,7 +48,6 @@ import java.util.Optional;
         writerRepository.persist(writerModel);
         return writerConverter.convert(writerModel);
     }
-
 
     @Transactional
     public List<Long> enterCircle(Long circleId, Long writerId) {

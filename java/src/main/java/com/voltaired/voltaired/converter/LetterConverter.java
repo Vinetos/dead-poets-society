@@ -6,7 +6,6 @@ import com.voltaired.voltaired.util.Converter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 
 @ApplicationScoped public class LetterConverter implements Converter<LetterModel, LetterEntity> {
 
@@ -14,14 +13,14 @@ import javax.transaction.Transactional;
 
     @Inject WriterConverter writerConverter;
 
-    @Transactional @Override public LetterEntity convertNotNull(LetterModel input) {
+    @Override public LetterEntity convertNotNull(LetterModel input) {
         return new LetterEntity(
                 input.id,
                 input.date,
                 input.content,
                 input.subject,
-                () -> input.circles.stream().map(circleConverter::convertNotNull).toList(),
-                writerConverter.convertNotNull(input.writer)
+                input.circles.stream().map(circleConverter::convert).toList(),
+                writerConverter.convert(input.writer)
         );
     }
 }

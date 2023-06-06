@@ -20,13 +20,13 @@ import java.util.Optional;
     public List<CircleEntity> getCircles() {
         return circleRepository.findAll()
                                .stream()
-                               .limit(5)
-                               .map(circleConverter::convertNotNull)
+                               .map(circleConverter::convert)
                                .toList();
     }
 
+    @Transactional
     public Optional<CircleEntity> getCircle(Long id) {
-        return circleRepository.findByIdOptional(id).map(circleConverter::convertNotNull);
+        return circleRepository.findByIdOptional(id).map(circleConverter::convert);
     }
 
     @Transactional
@@ -36,4 +36,7 @@ import java.util.Optional;
         return circleConverter.convert(circleModel);
     }
 
+    public void deleteCircle(Long id) {
+        circleRepository.deleteById(id);
+    }
 }

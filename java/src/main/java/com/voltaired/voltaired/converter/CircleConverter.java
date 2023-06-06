@@ -6,6 +6,7 @@ import com.voltaired.voltaired.util.Converter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 @ApplicationScoped public class CircleConverter implements Converter<CircleModel, CircleEntity> {
 
@@ -15,11 +16,11 @@ import javax.inject.Inject;
     @Override public CircleEntity convertNotNull(CircleModel input) {
         return new CircleEntity().withId(input.id)
                                  .withName(input.name)
-                                 .withWriters(() -> input.writers.stream()
-                                                                 .map(writerConverter::convertNotNull)
+                                 .withWriters(input.writers.stream()
+                                                                 .map(writerConverter::convert)
                                                                  .toList())
-                                 .withLetters(() -> input.letters.stream()
-                                                                 .map(letterConverter::convertNotNull)
+                                 .withLetters(input.letters.stream()
+                                                                 .map(letterConverter::convert)
                                                                  .toList());
     }
 

@@ -19,13 +19,13 @@ import static com.voltaired.voltaired.util.Optionals.opt;
 
     @Override public List<getAllWriters.Response> getAllWriters() {
         System.out.println("User: " + authenticationContext.getCurrentUser().getEmail());
-        return writerService.getWriters().map(writer -> new getAllWriters.Response(
+        return writerService.getWriters().stream().map(writer -> new getAllWriters.Response(
                 writer.getId(),
                 writer.getTitle(),
                 writer.getName(),
                 writer.getPenName(),
-                writer.getLetters().transactionalGet(),
-                writer.getCircles().transactionalGet()
+                writer.getLetters().get(),
+                writer.getCircles().get()
         )).toList();
     }
 
@@ -35,8 +35,8 @@ import static com.voltaired.voltaired.util.Optionals.opt;
                 writer.getTitle(),
                 writer.getName(),
                 writer.getPenName(),
-                writer.getLetters().transactionalGet(),
-                writer.getCircles().transactionalGet()
+                writer.getLetters().get(),
+                writer.getCircles().get()
         ));
         if (opt.isEmpty()) throw ErrorCodes.WRITER_NOT_FOUND.with(id).get();
         return opt.get();

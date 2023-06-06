@@ -20,6 +20,7 @@ dependencies {
     implementation("io.quarkus:quarkus-resteasy")
     implementation("io.quarkus:quarkus-resteasy-jackson")
     implementation("io.quarkus:quarkus-jdbc-postgresql")
+    implementation("io.quarkus:quarkus-flyway")
     implementation("io.quarkus:quarkus-arc")
     implementation("io.quarkus:quarkus-smallrye-openapi")
     implementation("io.quarkus:quarkus-redis-client")

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;

@@ -20,7 +20,7 @@ import java.util.List;
                 letter.date,
                 letter.getSubject(),
                 letter.getContent(),
-                letter.getCircle().transactionalGet().stream().map(CircleEntity::getId).toList(),
+                letter.getCircle().stream().map(CircleEntity::getId).toList(),
                 letter.getWriter().getId()
         )).toList();
     }
@@ -31,7 +31,7 @@ import java.util.List;
                 letter.date,
                 letter.getSubject(),
                 letter.getContent(),
-                letter.getCircle().transactionalGet().stream().map(CircleEntity::getId).toList(),
+                letter.getCircle().stream().map(CircleEntity::getId).toList(),
                 letter.getWriter().getId()
         ));
         if (opt.isEmpty()) throw ErrorCodes.LETTER_NOT_FOUND.with(id).get();

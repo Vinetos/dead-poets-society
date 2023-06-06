@@ -2,6 +2,7 @@ package com.voltaired.voltaired.presentation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.With;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -86,7 +87,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
     interface createCircle {
 
-        @With @Data @AllArgsConstructor class Request {
+        @With @Data @AllArgsConstructor @NoArgsConstructor class Request {
             public String name;
         }
 
@@ -118,7 +119,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     }
 
     interface enterCircle {
-        @With @Data @AllArgsConstructor class Request {
+        @With @Data @AllArgsConstructor @NoArgsConstructor class Request {
             public Long writerId;
         }
 
@@ -128,7 +129,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
     }
 
     interface leaveCircle {
-        @With @Data @AllArgsConstructor class Request {
+        @With @Data @AllArgsConstructor @NoArgsConstructor class Request {
             public Long writerId;
         }
 

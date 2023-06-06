@@ -6,6 +6,7 @@ import com.voltaired.voltaired.util.Converter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 @ApplicationScoped
 public class WriterConverter implements Converter<WriterModel, WriterEntity> {
@@ -20,10 +21,10 @@ public class WriterConverter implements Converter<WriterModel, WriterEntity> {
                                  .withPenName(input.penName)
                                  .withTitle(input.title)
                                  .withCircles(() -> input.circles.stream()
-                                                                 .map(circleConverter::convertNotNull)
+                                                                 .map(circleConverter::convert)
                                                                  .toList())
                                  .withLetters(() -> input.letters.stream()
-                                                                 .map(letterConverter::convertNotNull)
+                                                                 .map(letterConverter::convert)
                                                                  .toList());
     }
 }

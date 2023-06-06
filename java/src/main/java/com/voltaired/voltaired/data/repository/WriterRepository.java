@@ -7,7 +7,6 @@ import lombok.val;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
@@ -20,15 +19,19 @@ public class WriterRepository implements PanacheRepository<WriterModel> {
     }
 
     public List<CircleModel> enterCircle(Long circleId, Long writerId) {
-        val circle = findById(writerId);
-        circle.circles.add(circleRepository.findById(circleId));
-        return circle.circles;
+        val writer = findById(writerId);
+        val circle = circleRepository.findById(circleId);
+        if (!writer.circles.contains(circle))
+            writer.circles.add(circle);
+        return writer.circles;
     }
 
     public List<CircleModel> leaveCircle(Long circleId, Long writerId) {
-        val circle = findById(writerId);
-        circle.circles.remove(circleRepository.findById(circleId));
-        return circle.circles;
+        val writer = findById(writerId);
+        val circle = circleRepository.findById(circleId);
+        if (!writer.circles.contains(circle))
+            writer.circles.remove(circle);
+        return writer.circles;
     }
 
 }

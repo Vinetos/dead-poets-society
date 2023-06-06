@@ -26,18 +26,18 @@ import static com.voltaired.voltaired.util.Optionals.opt;
         return circleService.getCircles().stream().map(circle -> new getAllCircles.Response(
                 circle.getId(),
                 circle.getName(),
-                circle.getWriters().transactionalGet().stream().map(WriterEntity::getId).toList(),
-                circle.getLetters().transactionalGet().stream().map(LetterEntity::getId).toList()
-        )).toList();
+                circle.getLetters().stream().map(LetterEntity::getId).toList(),
+                circle.getWriters().stream().map(WriterEntity::getId).toList()
+                )).toList();
     }
 
     @Override public getCircle.Response getCircle(Long id) {
         val opt = circleService.getCircle(id).map(circle -> new getCircle.Response(
                 circle.getId(),
                 circle.getName(),
-                circle.getWriters().transactionalGet().stream().map(WriterEntity::getId).toList(),
-                circle.getLetters().transactionalGet().stream().map(LetterEntity::getId).toList()
-        ));
+                circle.getLetters().stream().map(LetterEntity::getId).toList(),
+                circle.getWriters().stream().map(WriterEntity::getId).toList()
+                ));
         if (opt.isEmpty()) throw ErrorCodes.CIRCLE_NOT_FOUND.with(id).get();
         return opt.get();
     }
@@ -49,7 +49,7 @@ import static com.voltaired.voltaired.util.Optionals.opt;
     }
 
     @Override public deleteCircles.Response deleteCircles(Long id) {
-        // todo call the service to delete the circle
+        circleService.deleteCircle(id);
         return null;
     }
 
@@ -74,7 +74,7 @@ import static com.voltaired.voltaired.util.Optionals.opt;
         val opt = opt(letterService.postLetters(circleId, request)).map(letter -> new postLetter.Response(
                 letter.getId(),
                 letter.getDate(),
-                letter.getCircle().transactionalGet().stream().map(CircleEntity::getId).toList().get(0),
+                letter.getCircle().stream().map(CircleEntity::getId).toList().get(0),
                 letter.getSubject(),
                 letter.getContent(),
                 letter.writer.getId()
