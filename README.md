@@ -10,8 +10,6 @@ D'abord, on doit démarrer nos containers via le docker-compose :
 ```shell
 docker compose up
 ```
-Pour accéder aux differents endpoints, voici le lien vers la documentation
-https://dps.epita.local/api/swagger
 
 Avec ce projet vous pourrez tester:
 - L'authentification
@@ -20,10 +18,16 @@ Avec ce projet vous pourrez tester:
 - Le logger redis
 
 ## API Publique
-Accessible depuis :
-https://dps.epita.local/circles
-https://dps.epita.local/letters
-https://dps.epita.local/writers
+Accessible depuis un format d'URL: `https://dps.epita.local/(circles|letters|writers).*`, elle sert d'endpoint pour les utilisateurs non-authentifiés.  
+Elle ne renvoie que des informations très basiques.  
+Ces spécifications sont définies dans le fichier `python/swagger.yml`.
+
+## API Restreinte
+Accessible depuis un format d'URL: `https://dps.epita.local/api/*`, elle sert d'endpoint pour les utilisateurs authentifiés.  
+Elle renvoie des informations complète et des possibilités de gestion avancée.  
+Elle possède une spec OpenAPI: https://dps.epita.local/api/openapi ainsi qu'un Swagger pour la visualiser : https://dps.epita.local/api/swagger.
+
+
 
 ## Redis
 La partie Redis manquant d'instructions, nous avons mis en place un plugin logger directement sur une fonction, le POST de Letters (voir swagger).
