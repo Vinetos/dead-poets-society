@@ -11,7 +11,7 @@ D'abord, on doit démarrer nos containers via le docker-compose :
 docker compose up
 ```
 
-Avec ce projet vous pourrez tester:
+Avec ce projet, vous pourrez tester :
 - L'authentification
 - Le web server
 - Les API publique et privée
@@ -24,7 +24,7 @@ Ces spécifications sont définies dans le fichier `python/swagger.yml`.
 
 ## API Restreinte
 Accessible depuis un format d'URL: `https://dps.epita.local/api/*`, elle sert d'endpoint pour les utilisateurs authentifiés.  
-Elle renvoie des informations complète et des possibilités de gestion avancée.  
+Elle renvoie des informations plus détaillées et offre des possibilités de gestion avancée.  
 Elle possède une spec OpenAPI: https://dps.epita.local/api/openapi ainsi qu'un Swagger pour la visualiser : https://dps.epita.local/api/swagger.
 
 
@@ -53,7 +53,7 @@ Pour pouvoir vérifier son fonctionnement, il suffit de se connecter au cli dock
 docker exec -it voltaired-cache-1 /bin/sh
 ```
 
-Quand vous serez connectez au Docker, vous pouvez taper ces commandes la pour susbscribe au logger redis
+Quand vous serez connecté au Docker, vous pouvez taper ces commandes pour susbscribe au logger redis
 
 ```
 redis-cli
